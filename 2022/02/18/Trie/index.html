@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Trie | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="What is Trie? A Trie is a special form of a Nary tree. Typically, Trie is a data structure to be used to store and search strings. Each Trie node represents a string (a prefix). The root node is assoc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trie">
+<meta property="og:url" content="http://example.com/2022/02/18/Trie/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="What is Trie? A Trie is a special form of a Nary tree. Typically, Trie is a data structure to be used to store and search strings. Each Trie node represents a string (a prefix). The root node is assoc">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-18T08:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-18T10:02:43.717Z">
+<meta property="article:author" content="Yang Xiao">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Trie" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Trie/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Trie
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Trie"><a href="#What-is-Trie" class="headerlink" title="What is Trie?"></a><span style="color:red">What is Trie?</span></h3><ul>
+<li>A Trie is a special form of a Nary tree.</li>
+<li>Typically, Trie is a <span style="background-color:yellow"><strong>data structure</strong></span> to be used to store and search strings. Each Trie node represents a string (a prefix).</li>
+<li>The root node is associated with the empty string.</li>
+<li>All the descendants of a node have a common prefix of the string associated with that node. That’s why Trie is also called prefix tree.</li>
+<li>Trie is widely used in various applications, such as autocomplete, spell checker, etc.</li>
+</ul>
+<h3 id="Two-representations-of-a-Trie-node"><a href="#Two-representations-of-a-Trie-node" class="headerlink" title="Two representations of a Trie node"></a><span style="color:red">Two representations of a Trie node</span></h3><ul>
+<li>The first solution is to use an <strong>array</strong> to store children nodes.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">  <span class="comment">// change this value to adapt to different cases</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> N = <span class="number">26</span>;</span><br><span class="line">  <span class="keyword">public</span> TrieNode[] children = <span class="keyword">new</span> TrieNode[N];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// you might need some extra values according to different cases</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>It is really fast to visit a child node. If we are pursing fast time performence, we can use array to store TrieNode. It is comparatively easy to visit a specific child since we can easily transfer a character to an index in most cases. But not all children nodes are needed. So there might be some waste of space.</p>
+<ul>
+<li>The second solution is to use a <strong>hashmap</strong> to store children nodes.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> Map&lt;Character, TrieNode&gt; children = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// you might need some extra values according to different cases</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>It is even easier to visit a specific child directly by the corresponding character. But it might be a little slower than using an array. However, it saves some space since we only store the children nodes we need. It is also more flexible because we are not limited by a fixed length and fixed range.</p>
+<h3 id="Implement-Trie"><a href="#Implement-Trie" class="headerlink" title="Implement Trie"></a><span style="color:red">Implement Trie</span></h3><p>Implement a trie with <strong>insert</strong>, <strong>search</strong>, and <strong>startsWith</strong> methods.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Map&lt;Character, TrieNode&gt; children = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> isWord;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Insert a word into the Trie</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">    TrieNode curr = root;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : word.toCharArray()) &#123;</span><br><span class="line">      curr.children.putIfAbsent(c, <span class="keyword">new</span> TrieNode());</span><br><span class="line">      curr = curr.children.get(c);</span><br><span class="line">    &#125;</span><br><span class="line">    curr.isWord = <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Return true if the word is in the Trie</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">    TrieNode curr = root;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : word.toCharArray()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (curr.children.get(c) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      curr = curr.children.get(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> curr.isWord;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Return true if there is any word in the Trie that starts with the given prefix</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span> </span>&#123;</span><br><span class="line">    TrieNode curr = root;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : prefix.toCharArray()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (curr.children.get(c) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      curr = curr.children.get(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Trie Constructor</th>
+<th>insert</th>
+<th>search</th>
+<th>startsWith</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Time Complexity:</strong></td>
+<td><span style="background-color:yellow"><strong>O(1)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+</tr>
+</tbody></table>
+<p>If the longest length of the word is N, the height of the Trie will be N + 1. Therefore, the time complexity of all insert, search and startsWith methods will be O(N).</p>
+<p><strong>Space Complexity: <span style="background-color:yellow"> O(M * N * K)</span></strong><br>If we have M words to insert in total and the length of words is at most N, there will be at most M * N nodes in the worst case (any two words don’t have a common prefix).</p>
+<p>Let’s assume that there are maximum K different characters (K is equal to 26 in the case of strings only containing lowercase english characters, but might differs in different cases.) So each node will maintain a map or array whose size is at most K.</p>
+<p>Therefore, the sapce complexity will be O(M * N * K).</p>
+<p>In real cases, the space complexity should be much smaller than our estimation, especially when the distribution of words is dense.</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/trie/">https://leetcode.com/explore/learn/card/trie/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzs8wbkc00037gvb4yjabb7u" data-title="Trie" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/02/18/Disjoint-Set/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Disjoint Set
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/02/17/Binary-Search/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Binary Search</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Trie/">Trie</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/17/Binary-Search/">Binary Search</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/">Build a live Blog with GitHub Pages and Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Yang Xiao<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
