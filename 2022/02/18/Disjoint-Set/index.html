@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Disjoint Set | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="What is Disjoint Set? Disjoint Set is a data structure usually applied in a graph, also known as Union Find data structure. The primary use of Disjoint Set is to address the connectivity between the c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Disjoint Set">
+<meta property="og:url" content="http://example.com/2022/02/18/Disjoint-Set/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="What is Disjoint Set? Disjoint Set is a data structure usually applied in a graph, also known as Union Find data structure. The primary use of Disjoint Set is to address the connectivity between the c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-18T08:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-18T09:37:11.543Z">
+<meta property="article:author" content="Yang Xiao">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Disjoint-Set" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Disjoint-Set/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Disjoint Set
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Disjoint-Set"><a href="#What-is-Disjoint-Set" class="headerlink" title="What is Disjoint Set?"></a><span style="color:red">What is Disjoint Set?</span></h3><ul>
+<li>Disjoint Set is a <span style="background-color:yellow"><strong>data structure</strong></span> usually applied in a graph, also known as Union Find data structure.</li>
+<li>The primary use of Disjoint Set is to address the connectivity between the components of a network. The “network” here can be a computer network or a social network. For instance, we can use a Disjoint Set to determine if two people share a common ancestor.</li>
+<li>The main idea of Disjoint Set is to have all connected vertices have the same root node, whether directly or indirectly connected. In this way if we want to check two vertices are connected, we only need to check if they have the same root node.</li>
+</ul>
+<h3 id="Two-essential-functions-of-Disjoint-Set"><a href="#Two-essential-functions-of-Disjoint-Set" class="headerlink" title="Two essential functions of Disjoint Set"></a><span style="color:red">Two essential functions of Disjoint Set</span></h3><ul>
+<li><span style="background-color:yellow"><strong>Find</strong></span> function finds the root node of a given vertex.</li>
+<li><span style="background-color:yellow"><strong>Union</strong></span> function connects previously unconnected two vertices by making their root nodes the same.</li>
+<li>There is another important function named <strong>connected</strong>, which checks the connectivity of two vertices.</li>
+</ul>
+<h3 id="Two-basic-ways-to-implement-Disjoint-Set"><a href="#Two-basic-ways-to-implement-Disjoint-Set" class="headerlink" title="Two basic ways to implement Disjoint Set"></a><span style="color:red">Two basic ways to implement Disjoint Set</span></h3><ul>
+<li><strong>implementation with <span style="background-color:yellow">Quick Find</span></strong>: The time complexity of the find function will be O(1), the union function will take more time with the time complexity of O(N).</li>
+<li><strong>implementation with <span style="background-color:yellow">Quick Union</span></strong>: Compared with the quick find implementation, the find function will take more time in this case wiht the time complexity of O(N), the time complexity of the union function is also O(N), but performs better than the union functon of Quick Find implementation.</li>
+</ul>
+<h3 id="Two-common-strategies-to-optimize-Disjoint-Set"><a href="#Two-common-strategies-to-optimize-Disjoint-Set" class="headerlink" title="Two common strategies to optimize Disjoint Set"></a><span style="color:red">Two common strategies to optimize Disjoint Set</span></h3><ul>
+<li><span style="background-color:yellow"><strong>Path Compression</strong></span>: This optimization is after finding the root node of a given vertex, we update the parent node of all traversed vertices to their root node. When we search for the root node of the same vertex again, we only need to traverse two vertices to find its root node, which is highly efficient. The time complexity of find function is reduced from O(n) to O(logn).</li>
+<li><span style="background-color:yellow"><strong>Union by Rank</strong></span>: For the union function, instead of always picking the root of the first vertex as the new root node, we choose the root node of the vertex with a larger “rank”. We will merge the shorter tree under the taller tree and assign the root node of the taller tree as the root node for both vertices. In this way, we effectively avoid the possibility of connecting all vertices into a straight line. The time complexity of union function is reduced from O(n) to O(logn).</li>
+</ul>
+<h3 id="Optimized-Disjoint-Set-with-path-compression-and-union-by-rank"><a href="#Optimized-Disjoint-Set-with-path-compression-and-union-by-rank" class="headerlink" title="Optimized Disjoint Set with path compression and union by rank"></a><span style="color:red">Optimized Disjoint Set with path compression and union by rank</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span>[] root;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span>[] rank;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">UnionFind</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">    root = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    rank = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      root[i] = i;</span><br><span class="line">      rank[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == root[x]) &#123;</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root[x] = find(root[x]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rootX = find(x);</span><br><span class="line">    <span class="keyword">int</span> rootY = find(y);</span><br><span class="line">    <span class="keyword">if</span> (rootX == rootY) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">      root[rootY] = rootX;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">      root[rootX] = rootY;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      root[rootY] = rootX;</span><br><span class="line">      rank[rootX]++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> find(x) == find(y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Union-find Constructor</th>
+<th>Find</th>
+<th>Union</th>
+<th>Connected</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Time Complexity:</strong></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(α(N))</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(α(N))</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(α(N))</strong></span></td>
+</tr>
+</tbody></table>
+<p>N is the number of vertices in the graph. α refers to the Inverse Ackermann function. In practice, we assume it is a constant. In other words, O(α(N)) is regarded as O(1) on average.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(N)</span></strong><br>We need two arrays of size N to record root nodes and rank of root nodes.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>In some problems, we are required to return the number of different groups or some extra information like the size of the maximum group. To get these information, we can keep some variables and update them while union two vertices.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span>[] root;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span>[] rank;</span><br><span class="line">  <span class="comment">// returns the number of different groups</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span> groups;</span><br><span class="line">  <span class="comment">// returns the size of the largest group</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span> maxGroupSize;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">UnionFind</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">    root = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    rank = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      root[i] = i;</span><br><span class="line">      <span class="comment">// here rank array keeps the size of each group</span></span><br><span class="line">      rank[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// initially all vertices are independent groups of size 1</span></span><br><span class="line">    groups = size;</span><br><span class="line">    <span class="comment">// initially all groups have one element</span></span><br><span class="line">    maxGroupSize = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == root[x]) &#123;</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root[x] = find(root[x]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> rootX = find(x);</span><br><span class="line">    <span class="keyword">int</span> rootY = find(y);</span><br><span class="line">    <span class="keyword">if</span> (rootX == rootY) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rank[rootX] &gt;= rank[rootY]) &#123;</span><br><span class="line">      root[rootY] = rootX;</span><br><span class="line">      rank[rootX] += rank[rootY];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      root[rootX] = rootY;</span><br><span class="line">      rank[rootY] += rank[rootX];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// each valid union operation will reduce the number of groups by one</span></span><br><span class="line">    groups--;</span><br><span class="line">    <span class="comment">// update maxGroupSize in each valid union</span></span><br><span class="line">    maxGroupSize = Math.max(maxGroupSize, Math.max(rank[rootX], rank[rootY]));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> find(x) == find(y);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/groups-of-strings/">https://leetcode.com/problems/groups-of-strings/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/618/disjoint-set">https://leetcode.com/explore/learn/card/graph/618/disjoint-set</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzs805vv0002fwvb9niog2lx" data-title="Disjoint Set" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/17/Binary-Search/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Binary Search</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/17/Binary-Search/">Binary Search</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/">Build a live Blog with GitHub Pages and Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Yang Xiao<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
