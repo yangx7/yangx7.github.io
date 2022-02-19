@@ -71,6 +71,122 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Breadth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Breadth-First-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Breadth-First-Search"><a href="#What-is-Breadth-First-Search" class="headerlink" title="What is Breadth First Search?"></a><span style="color:red">What is Breadth First Search?</span></h3><p>Breadth First Search (BFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to traverse all nodes level by level or find the shortest path from the root node to the target node in a graph, tree or sometimes a 2D array.</p>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Most basic and elementary form of BFS to traverse all nodes in a Binary Tree.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Node&gt; <span class="title">BFS</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">  List&lt;Node&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    Node curr = queue.poll();</span><br><span class="line">    ans.add(curr);</span><br><span class="line">    <span class="keyword">if</span> (curr.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">      queue.offer(curr.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (curr.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">      queue.offer(curr.right);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>Since we only want to traverse all nodes in a Binary Tree, we do not need to worry about detecting cycles or care about different levels of the tree, just add left and right children of the current node to the queue if they are not null.</li>
+</ul>
+<hr>
+<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><p><strong>Find the shortest path from the root node to the target node in a tree or a directed acyclic graph (DAG).</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(Node root, Node target)</span> </span>&#123;</span><br><span class="line">  Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> size = queue.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      Node curr = queue.poll();</span><br><span class="line">      <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">      Add children nodes of a tree or neighbors in a graph to the queue</span></span><br><span class="line"><span class="comment">      e.g. If we are traversing a Binary Tree,</span></span><br><span class="line"><span class="comment">      we should add curr.left and curr.right to the queue if they are not null</span></span><br><span class="line"><span class="comment">      **/</span></span><br><span class="line">      <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    step++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Return -1 if there is no path from root to target</span></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>As shown in the code, in each round, we need to keep the current queue size, nodes inside this range are from the current level we are working on.</li>
+<li>After each outer while loop, we are one step farther from the root node. The variable step indicates the distance from the root node and the current node we are visiting.</li>
+<li>There is a variant of increasing step, instead of updating step at the end of the while loop, we can also increasing step at the beginning of the while loop:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">  step++;</span><br><span class="line">  <span class="keyword">int</span> size = queue.size();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    Node curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">      <span class="keyword">if</span> (next == target) &#123;</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">      &#125;</span><br><span class="line">      queue.offer(next);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this way, we can terminate the finding process even earlier, but we need to be carefull about handling the initial root node firstly before we go to the while loop.</p>
+<hr>
+<h3 id="Template-3"><a href="#Template-3" class="headerlink" title="Template 3"></a><span style="color:red">Template 3</span></h3><p><strong>If we need to make sure that we never visit a node twice or want to avoid getting stuck in an infinite loop in a graph with cycle, we can keep a set to contain all node we have visited.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(Node root, Node target)</span> </span>&#123;</span><br><span class="line">  Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  Set&lt;Node&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  queue.offer(root);</span><br><span class="line">  visited.add(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> size = queue.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      Node curr = queue.poll();</span><br><span class="line">      <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">          queue.offer(next);</span><br><span class="line">          visited.add(next);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    step++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes-2"><a href="#Key-Attributes-2" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>Key difference between this template and template 2 is that here we keep a set to contain all visited nodes, before we add a new node to the queue, we need to check if the node is already in the set.</li>
+<li>This template is used if you are given a graph that may have cycles or you do not want to visit a node multiple times like traversing in an 2D array.</li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Binary Tree/ N-ary Tree</th>
+<th>Graph</th>
+<th>2D Array</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Time Complexity:</strong></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(V + E)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(M * N)</strong></span></td>
+</tr>
+</tbody></table>
+<ul>
+<li>In the Binary Tree or N-ary Tree, N represents the number of nodes, the number of edges will be exactly N - 1, so together the time complexity is O(N).</li>
+<li>In the graph, V represents the number of vertices, and E represents the number of edges. We need to check every vertex and traverse through every edge in the graph.</li>
+<li>In the 2D array of size M * N, we need to traverse all elements in the matrix, so the time complexity is O(M * N).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Binary Tree/ N-ary Tree</th>
+<th>Graph</th>
+<th>2D Array</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Space Complexity:</strong></td>
+<td><span style="background-color:yellow"><strong>O(N)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(V)</strong></span></td>
+<td><span style="background-color:yellow"><strong>O(M * N)</strong></span></td>
+</tr>
+</tbody></table>
+<ul>
+<li>In the Binary Tree or N-ary Tree, at worst case we need to hold all nodes in the queue.</li>
+<li>In the graph, we will check if a vertex has been visited before adding it to the queue, so the queue will use at most O(V) space. Keeping track of which vertices have been visited will also require O(V) space.</li>
+<li>In the 2D array, at worst case we need to hold all elements in the queue. Keeping track of which elements have been visited will also require O(M * N) space.</li>
+</ul>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Template 3 is also widely used in searching a 2D Array. The question may define that we can search 4 directions from one point, that is up, down, left and right. In this case, we can predefine a direction array and use it when we want to generate new points.</p>
+<p><strong>Find the shortest path from the start point to the target point in a 2D array.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span>[][] mat, <span class="keyword">int</span>[] start, <span class="keyword">int</span>[] target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> m = mat.length;</span><br><span class="line">  <span class="keyword">int</span> n = mat[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">  Queue&lt;<span class="keyword">int</span>[]&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  <span class="keyword">boolean</span>[][] visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n];</span><br><span class="line"></span><br><span class="line">  queue.offer(start);</span><br><span class="line">  visited[start[<span class="number">0</span>]][start[<span class="number">1</span>]] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// define directions vector in clockwise direction: up, right, down, left</span></span><br><span class="line">  <span class="keyword">int</span>[][] DIRS = &#123;&#123;-<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> size = queue.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      <span class="keyword">int</span>[] curr = queue.poll();</span><br><span class="line">      <span class="keyword">int</span> row = curr[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> col = curr[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (row == target[<span class="number">0</span>] &amp;&amp; col == target[<span class="number">1</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span>[] dir : DIRS) &#123;</span><br><span class="line">        <span class="keyword">int</span> r = row + dir[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> c = col + dir[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (r &lt; <span class="number">0</span> || r &gt;= m || c &lt; <span class="number">0</span> || c &gt;= n || visited[r][c]) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        queue.offer(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;r, c&#125;);</span><br><span class="line">        visited[r][c] = <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    step++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/queue-stack/231/practical-application-queue/">https://leetcode.com/explore/learn/card/queue-stack/231/practical-application-queue/</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/620/breadth-first-search-in-graph/3883/">https://leetcode.com/explore/learn/card/graph/620/breadth-first-search-in-graph/3883/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckztig12a0001w8vb1z00c0sc" data-title="Breadth First Search" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Disjoint-Set" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/02/18/Disjoint-Set/" class="article-date">
@@ -147,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzs8wbk900027gvb2e5i1w67" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckztig12d0003w8vbeimvf8l0" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -233,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzs8wbkc00037gvb4yjabb7u" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckztig12e0004w8vb63ylggt5" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -323,7 +439,6 @@
 <li>Gurantee search space is at least 3 in size at each step.</li>
 <li>Post-processing required. Loop/Recursion ends when you have 2 elements left. Need to assess if the remaining elements meet the condition.</li>
 </ul>
-<hr>
 <h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(logN)</span></strong><br>Binary Search operates by applying a condition to the value in the middle of the search space and thus cutting the search space in half, in the worst case, we will have to make O(logN) comparisons, where N is the number of elements in our input collection.</p>
 <p><strong>Space Complexity: <span style="background-color:yellow">O(1)</span></strong><br>Although, Binary Search does require keeping track of 3 indicies, the iterative solution does not typically require any other additional space and can be applied directly on the collection itself, therefore warrants O(1) or constant space.</p>
 <h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Template 2 is widely used in one class of questions, that is to find the minimum or maximum possible value that meets a certain condition.</p>
@@ -345,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzs8wbk700017gvbdhi2hygu" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckztig1270000w8vbh1q554bq" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -451,7 +566,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzs8wbk400007gvb0cgodvkd" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckztig12c0002w8vbgg8cg45l" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -492,6 +607,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
+          </li>
         
           <li>
             <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
