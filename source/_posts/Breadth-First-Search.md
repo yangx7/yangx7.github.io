@@ -6,7 +6,10 @@ tags:
 
 ### <span style="color:red">What is Breadth First Search?</span>
 
-Breadth First Search (BFS) is an <span style="background-color:yellow">**algorithm**</span> usually used to traverse all nodes level by level or find the shortest path from the root node to the target node in a graph, tree or sometimes a 2D array.
+Breadth First Search (BFS) is an <span style="background-color:yellow">**algorithm**</span> usually used to：
+
+- Traverse all nodes level by level in a graph, tree or 2D array.
+- Find the shortest path from the root node to the target node in a graph, tree or 2D array.
 
 ---
 
