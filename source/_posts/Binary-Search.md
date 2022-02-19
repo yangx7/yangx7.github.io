@@ -164,8 +164,6 @@ Template 3 is another unique form of Binary Search. It is used to search for an 
 - Gurantee search space is at least 3 in size at each step.
 - Post-processing required. Loop/Recursion ends when you have 2 elements left. Need to assess if the remaining elements meet the condition.
 
----
-
 ### <span style="color:red">Time and Space Complexity</span>
 
 **Time Complexity: <span style="background-color:yellow">O(logN)</span>**
