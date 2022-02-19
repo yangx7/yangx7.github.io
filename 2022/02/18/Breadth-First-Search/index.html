@@ -6,15 +6,15 @@
   
   <title>Breadth First Search | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="What is Breadth First Search?Breadth First Search (BFS) is an algorithm usually used to traverse all nodes level by level or find the shortest path from the root node to the target node in a graph, tr">
+  <meta name="description" content="What is Breadth First Search?Breadth First Search (BFS) is an algorithm usually used to：  Traverse all nodes level by level in a graph, tree or 2D array. Find the shortest path from the root node to t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Breadth First Search">
 <meta property="og:url" content="http://example.com/2022/02/18/Breadth-First-Search/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="What is Breadth First Search?Breadth First Search (BFS) is an algorithm usually used to traverse all nodes level by level or find the shortest path from the root node to the target node in a graph, tr">
+<meta property="og:description" content="What is Breadth First Search?Breadth First Search (BFS) is an algorithm usually used to：  Traverse all nodes level by level in a graph, tree or 2D array. Find the shortest path from the root node to t">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-18T08:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-19T07:17:19.620Z">
+<meta property="article:modified_time" content="2022-02-19T07:31:55.170Z">
 <meta property="article:author" content="Yang Xiao">
 <meta name="twitter:card" content="summary">
   
@@ -95,7 +95,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h3 id="What-is-Breadth-First-Search"><a href="#What-is-Breadth-First-Search" class="headerlink" title="What is Breadth First Search?"></a><span style="color:red">What is Breadth First Search?</span></h3><p>Breadth First Search (BFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to traverse all nodes level by level or find the shortest path from the root node to the target node in a graph, tree or sometimes a 2D array.</p>
+        <h3 id="What-is-Breadth-First-Search"><a href="#What-is-Breadth-First-Search" class="headerlink" title="What is Breadth First Search?"></a><span style="color:red">What is Breadth First Search?</span></h3><p>Breadth First Search (BFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to：</p>
+<ul>
+<li>Traverse all nodes level by level in a graph, tree or 2D array.</li>
+<li>Find the shortest path from the root node to the target node in a graph, tree or 2D array.</li>
+</ul>
 <hr>
 <h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Most basic and elementary form of BFS to traverse all nodes in a Binary Tree.</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Node&gt; <span class="title">BFS</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">  List&lt;Node&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  Queue&lt;Node&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    Node curr = queue.poll();</span><br><span class="line">    ans.add(curr);</span><br><span class="line">    <span class="keyword">if</span> (curr.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">      queue.offer(curr.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (curr.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">      queue.offer(curr.right);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -177,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckztig12a0001w8vb1z00c0sc" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuez5p200010wvb2ngzes77" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -236,15 +240,15 @@
           </li>
         
           <li>
+            <a href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/18/Trie/">Trie</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/17/Binary-Search/">Binary Search</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/">Build a live Blog with GitHub Pages and Hexo</a>
           </li>
         
       </ul>
