@@ -71,6 +71,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Topological-Sorting" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/20/Topological-Sorting/" class="article-date">
+  <time class="dt-published" datetime="2022-02-20T08:00:00.000Z" itemprop="datePublished">2022-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Topological-Sorting"><a href="#What-is-Topological-Sorting" class="headerlink" title="What is Topological Sorting?"></a><span style="color:red">What is Topological Sorting?</span></h3><p>Topological sorting provides a linear sorting based on the required ordering between vertices in a directed acyclic graph(DAG). To be specific, given vertices u and v, to reach vertex v, we must have reached vertex u first. In topological sorting, u has to appear before v in the ordering. The most popular algorithm for topological sorting is Kahn’s algorithm.</p>
+<h3 id="Kahn’s-algorithm"><a href="#Kahn’s-algorithm" class="headerlink" title="Kahn’s algorithm"></a><span style="color:red">Kahn’s algorithm</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array prerequisites, prerequisites[i] = [ui, vi] indicates that you must reach vi first if you want to reach ui,</span></span><br><span class="line"><span class="comment">return the ordering of vertices you should take to visit all vertices</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span>[] Kahn(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] prerequisites) &#123;</span><br><span class="line">  Map&lt;Integer, List&lt;Integer&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    adj.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] indegree = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] pre : prerequisites) &#123;</span><br><span class="line">    adj.get(pre[<span class="number">1</span>]).add(pre[<span class="number">0</span>]);</span><br><span class="line">    indegree[pre[<span class="number">0</span>]]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (indegree[i] == <span class="number">0</span>) &#123;</span><br><span class="line">      queue.offer(i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    ans[index++] = curr;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> next : adj.get(curr)) &#123;</span><br><span class="line">      indegree[next]--;</span><br><span class="line">      <span class="keyword">if</span> (indegree[next] == <span class="number">0</span>) &#123;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (index != n) &#123;</span><br><span class="line">    <span class="comment">// if there is no valid topological sorting, return an empty array</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>Topological sorting only works with directed acyclic graph(DAG).</li>
+<li>There must be at least one vertex in the graph with an indegree of 0. If all vertices in the graph have a non-zero indegree, then all vertices need at least one vertex as a predecessor. In this case, no vertex can serve as the starting vertex.</li>
+</ul>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/course-schedule-ii/">https://leetcode.com/problems/course-schedule-ii/</a></li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
+<ul>
+<li>V represents the number of vertices, and E represents the number of edges.</li>
+<li>Building the adjacency list will take O(E) time, as we must iterate over all edges.</li>
+<li>We will repeatedly visit each vertex with an indegree of zero and decrement the indegree of all vertices that have this vertex as a prerequisite. In the worst case, we will visit every vertex and decrement every outgoing edge once. This part will take O(V + E) time.</li>
+<li>Therefore, the total time complexity is <code>O(E) + O(V + E) = O(V + E)</code>.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
+<ul>
+<li>Building the adjacency list will take O(E) space.</li>
+<li>Storing the indegree for each vertex requires O(V) space.</li>
+<li>The queue can contain at most V vertices, so the queue also requires O(V) space.</li>
+<li>Therefore, the total time complexity is <code>O(E) + O(V) = O(V + E)</code>.</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/623/kahns-algorithm-for-topological-sorting">https://leetcode.com/explore/learn/card/graph/623/kahns-algorithm-for-topological-sorting</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/20/Topological-Sorting/" data-id="ckzv1yg190008tkvb5toogq5q" data-title="Topological Sorting" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Bellman-Ford-Algorithm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/02/19/Bellman-Ford-Algorithm/" class="article-date">
@@ -129,7 +195,7 @@
 <li> Repeat step 3 and 4 until the queue is empty.</li>
 <li> If arr[target] is still the large value we initialized the array with, it means the target is not reachable from the source, return -1. Otherwise, return arr[target].</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target) &#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(source);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(curr)) &#123;</span><br><span class="line">      <span class="keyword">int</span> next = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (paths[curr] + weight &lt; paths[next]) &#123;</span><br><span class="line">        paths[next] = paths[curr] + weight;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target) &#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    adj.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(source);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(curr)) &#123;</span><br><span class="line">      <span class="keyword">int</span> next = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (paths[curr] + weight &lt; paths[next]) &#123;</span><br><span class="line">        paths[next] = paths[curr] + weight;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>Time Complexity: <span style="background-color:yellow">O(V · E)</span></strong></p>
 <ul>
@@ -162,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzuzmdy20001jsvb2izsf9k2" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzv1yg100000tkvbc1ixablu" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -225,7 +291,7 @@
 </li>
 <li> Find the value paths[targetNode], if the value is still the large value we initialized the array with, it means the targetNode is not reachable from the startNode, return -1. Otherwise, return the value we get in the array.</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    adj.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>related questions:</strong></p>
 <ul>
@@ -253,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuzmdy60006jsvbhetq6my3" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzv1yg170006tkvb22df0s6r" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -346,7 +412,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzuzmdy90007jsvb2tue4wps" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzv1yg180007tkvbaaqz3xzr" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
+<ul>
+<li>Traverse all nodes in a graph, tree or 2D array.</li>
+<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
+<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
+</ul>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzv1yg160003tkvbbkn41rfr" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -466,54 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuzmdy30002jsvb7esc0yqw" data-title="Breadth First Search" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
-  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
-<ul>
-<li>Traverse all nodes in a graph, tree or 2D array.</li>
-<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
-<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
-</ul>
-<hr>
-<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuzmdy40003jsvbbkli7bhg" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzv1yg160004tkvbg1ah0xh8" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -601,7 +667,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuzmdy50005jsvb4jjzdcdl" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzv1yg170005tkvbbzbnftnm" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -687,7 +753,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuzmdy90008jsvbfbovdyvt" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzv1yg190009tkvb24g1elne" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -798,7 +864,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuzmdxz0000jsvb93tmg1rr" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzv1yg140001tkvbd150ehyp" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -904,7 +970,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuzmdy50004jsvbetpj8v3u" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzv1yg150002tkvb75cm5pje" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -947,6 +1013,10 @@
       <ul>
         
           <li>
+            <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/19/Bellman-Ford-Algorithm/">Bellman Ford Algorithm</a>
           </li>
         
@@ -956,10 +1026,6 @@
         
           <li>
             <a href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
           </li>
         
           <li>

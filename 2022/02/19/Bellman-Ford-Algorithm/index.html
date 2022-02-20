@@ -14,7 +14,7 @@
 <meta property="og:description" content="What is Bellman Ford Algorithm? Bellman Ford Algorithm is an algorithm used to solve the “single-source shortest path” problem in a weighted directed graph with negative weights. “single source shorte">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-19T08:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-20T08:06:25.073Z">
+<meta property="article:modified_time" content="2022-02-20T08:50:15.616Z">
 <meta property="article:author" content="Yang Xiao">
 <meta name="twitter:card" content="summary">
   
@@ -131,7 +131,7 @@
 <li> Repeat step 3 and 4 until the queue is empty.</li>
 <li> If arr[target] is still the large value we initialized the array with, it means the target is not reachable from the source, return -1. Otherwise, return arr[target].</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target) &#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(source);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(curr)) &#123;</span><br><span class="line">      <span class="keyword">int</span> next = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (paths[curr] + weight &lt; paths[next]) &#123;</span><br><span class="line">        paths[next] = paths[curr] + weight;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target) &#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    adj.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(source);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(curr)) &#123;</span><br><span class="line">      <span class="keyword">int</span> next = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (paths[curr] + weight &lt; paths[next]) &#123;</span><br><span class="line">        paths[next] = paths[curr] + weight;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>Time Complexity: <span style="background-color:yellow">O(V · E)</span></strong></p>
 <ul>
@@ -164,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzuzmdy20001jsvb2izsf9k2" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzv1yg100000tkvbc1ixablu" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -173,6 +173,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/02/20/Topological-Sorting/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Topological Sorting
+        
+      </div>
+    </a>
   
   
     <a href="/2022/02/19/Dijkstra's-Algorithm/" id="article-nav-older" class="article-nav-link-wrap">
@@ -215,6 +224,10 @@
       <ul>
         
           <li>
+            <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/19/Bellman-Ford-Algorithm/">Bellman Ford Algorithm</a>
           </li>
         
@@ -224,10 +237,6 @@
         
           <li>
             <a href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
           </li>
         
           <li>
