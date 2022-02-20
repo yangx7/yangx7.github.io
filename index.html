@@ -204,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/20/Heap/" data-id="ckzv6x2oq0006f4vb18z2fkk6" data-title="Heap" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/20/Heap/" data-id="ckzvw789o0007msvb0tlt2cdc" data-title="Heap" class="article-share-link">Share</a>
       
       
       
@@ -270,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/20/Topological-Sorting/" data-id="ckzv6x2or0008f4vb7hb56boe" data-title="Topological Sorting" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/20/Topological-Sorting/" data-id="ckzvw789p0009msvb692oardh" data-title="Topological Sorting" class="article-share-link">Share</a>
       
       
       
@@ -373,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzv6x2om0001f4vb6gw9ays3" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzvw789g0000msvb1gx0dbn7" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -464,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzv6x2op0005f4vbcsbzaq0o" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzvw789m0004msvb67s0484w" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -557,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzv6x2or0009f4vb9mjb5mql" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzvw789p0008msvb3qke3i7s" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
       
       
       
@@ -677,7 +677,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzv6x2oi0000f4vb98n7g8ip" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzvw789l0002msvb1icfccar" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -721,10 +721,48 @@
 <h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>We are using the implicit stack provided by the system, also known as the Call Stack.</li>
+<li>If the depth of recursion is too high, you will suffer from stack overflow.</li>
+</ul>
+<hr>
+<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><p><strong>Template of DFS using an explicit stack to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node root, Node target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (root == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Deque&lt;Node&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  Set&lt;Node&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">  stack.push(root);</span><br><span class="line">  visited.add(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    Node curr = stack.pop();</span><br><span class="line">    <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">        stack.push(next);</span><br><span class="line">        visited.add(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>The logic is exactly the same with the recursion solution. But we use while loop and stack to simulate the system call stack during recursion.</li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + E)</span></strong><br>V represents the number of vertices, and E represents the number of edges. We need to check every vertex and traverse through every edge in the graph.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V)</span></strong><br>Either the manually created stack or the recursive call stack can store up to V vertices.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>DFS can be used to find all paths from the source vertex to the target vertex on a directed acyclic graph (DAG)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1,</span></span><br><span class="line"><span class="comment">find all possible paths from node 0 to node n - 1 and return them in any order.</span></span><br><span class="line"><span class="comment">graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(<span class="keyword">int</span>[][] graph) &#123;</span><br><span class="line">  List&lt;List&lt;Integer&gt;&gt; paths = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  dfs(graph, <span class="number">0</span>, <span class="keyword">new</span> ArrayList&lt;&gt;(), paths);</span><br><span class="line">  <span class="keyword">return</span> paths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// this is also regarded as backtrack solution</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] graph, <span class="keyword">int</span> node, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; paths)</span> </span>&#123;</span><br><span class="line">  path.add(node);</span><br><span class="line">  <span class="keyword">if</span> (node == graph.length - <span class="number">1</span>) &#123;</span><br><span class="line">    paths.add(<span class="keyword">new</span> ArrayList&lt;&gt;(path));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> next : graph[node]) &#123;</span><br><span class="line">    dfs(graph, next, path, paths);</span><br><span class="line">    path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
+<ul>
+<li>V represents the number of vertices.</li>
+<li>For a directed acyclic graph (DAG) with V vertices, there could be at most 2<sup>V - 1</sup> - 1 possible paths to go from the starting vertex to the target vertex. We need O(V) time to build each such path.</li>
+<li>Therefore, a loose upper bound on the time complexity would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+<li>Since we have overlap between the paths, the actual time spent on the traversal will be lower to some extent.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
+<ul>
+<li>The recursion depth can be no more than V, and we need O(V) space to store all the previously visited vertices while recursively traversing deeper with the current path.</li>
+<li>since at most we could have 2<sup>V - 1</sup> - 1 possible paths as the results and each path can contain up to V vertices, the space we need to store the results would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+<li>To sum up, the space complexity of the algorithm is O(V) + O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+</ul>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/all-paths-from-source-to-target/">https://leetcode.com/problems/all-paths-from-source-to-target/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/">https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph">https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph</a></li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzv6x2oo0004f4vb60zf77ao" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzvw789n0005msvbcm5mbaa7" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -812,7 +850,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzv6x2oq0007f4vb9focgbka" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzvw789o0006msvbbr3g0x83" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -898,7 +936,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzv6x2ov000af4vbg8ff9gls" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzvw789q000amsvb0v528euq" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -1009,7 +1047,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzv6x2on0002f4vb19k554fy" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzvw789k0001msvb3qcqgh8n" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
