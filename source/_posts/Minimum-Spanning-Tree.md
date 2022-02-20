@@ -32,7 +32,7 @@ Kruskal’s algorithm is an <span style="background-color:yellow">**algorithm**<
 
 1.  Ascending sort all edges by their weight. In practice, we can use min heap to get the edge wih the smallest weight.
 2.  Add edges in ascending order into the MST. Skip the edges that would produce cycles in the MST.
-3.  Repeat step 2 until N - 1 edges are added.
+3.  Repeat step 2 until `N - 1` edges are added.
 
 ```java
 class Solution {
