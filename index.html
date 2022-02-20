@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuj1loy0003tcvb1ggv246s" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuje1950004gwvb468t4l0s" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -162,9 +162,9 @@
 
 
   
-    <article id="post-Minimum-Spanning-Tree." class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Minimum-Spanning-Tree" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/02/19/Minimum-Spanning-Tree./" class="article-date">
+    <a href="/2022/02/19/Minimum-Spanning-Tree/" class="article-date">
   <time class="dt-published" datetime="2022-02-19T08:00:00.000Z" itemprop="datePublished">2022-02-19</time>
 </a>
     
@@ -176,7 +176,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/19/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
+      <a class="p-name article-title" href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
     </h1>
   
 
@@ -197,7 +197,7 @@
 <ol>
 <li> Ascending sort all edges by their weight. In practice, we can use min heap to get the edge wih the smallest weight.</li>
 <li> Add edges in ascending order into the MST. Skip the edges that would produce cycles in the MST.</li>
-<li> Repeat step 2 until N - 1 edges are added.</li>
+<li> Repeat step 2 until <code>N - 1</code> edges are added.</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  Given an array points representing integer coordinates of some points on a 2D-plane,</span></span><br><span class="line"><span class="comment">  where points[i] = [xi, yi].</span></span><br><span class="line"><span class="comment">  The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them:</span></span><br><span class="line"><span class="comment">  |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.</span></span><br><span class="line"><span class="comment">  **/</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Kruskal</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (points == <span class="keyword">null</span> || points.length == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> size = points.length;</span><br><span class="line">    UnionFind uf = <span class="keyword">new</span> UnionFind(size);</span><br><span class="line">    PriorityQueue&lt;Edge&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((p1, p2) -&gt; p1.cost - p2.cost);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">      <span class="keyword">int</span>[] p1 = points[i];</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; size; j++) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] p2 = points[j];</span><br><span class="line">        <span class="keyword">int</span> cost = Math.abs(p1[<span class="number">0</span>] - p2[<span class="number">0</span>]) + Math.abs(p1[<span class="number">1</span>] - p2[<span class="number">1</span>]);</span><br><span class="line">        Edge edge = <span class="keyword">new</span> Edge(i, j, cost);</span><br><span class="line">        pq.add(edge);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// to construct MST, we need (size - 1) edges</span></span><br><span class="line">    <span class="keyword">int</span> count = size - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (!pq.isEmpty() &amp;&amp; count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      Edge edge = pq.poll();</span><br><span class="line">      <span class="keyword">if</span> (!uf.connected(edge.point1, edge.point2)) &#123;</span><br><span class="line">        uf.union(edge.point1, edge.point2);</span><br><span class="line">        ans += edge.cost;</span><br><span class="line">        count--;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Edge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> point1;</span><br><span class="line">    <span class="keyword">int</span> point2;</span><br><span class="line">    <span class="keyword">int</span> cost;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Edge</span><span class="params">(<span class="keyword">int</span> point1, <span class="keyword">int</span> point2, <span class="keyword">int</span> cost)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.point1 = point1;</span><br><span class="line">      <span class="keyword">this</span>.point2 = point2;</span><br><span class="line">      <span class="keyword">this</span>.cost = cost;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] root;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] rank;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnionFind</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">      root = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">      rank = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        root[i] = i;</span><br><span class="line">        rank[i] = <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (x == root[x]) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> root[x] = find(root[x]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> rootX = find(x);</span><br><span class="line">      <span class="keyword">int</span> rootY = find(y);</span><br><span class="line">      <span class="keyword">if</span> (rootX == rootY) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">        root[rootY] = rootX;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">        root[rootX] = rootY;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        root[rootY] = rootX;</span><br><span class="line">        rank[rootX]++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> find(x) == find(y);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -243,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree./" data-id="ckzuj1lp00007tcvbgvxchi1s" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzuje1960006gwvbdoq10f5b" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
       
       
       
@@ -363,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuj1low0001tcvbapwxgld9" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuje1930002gwvb4xjv19v1" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -410,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuj1loy0004tcvbhbb3flto" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuje1940003gwvbakushj99" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -498,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuj1loz0005tcvbbd31bqe9" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuje1950005gwvbh43ladri" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -584,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuj1lp00006tcvbgmc5cwzk" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuje1990007gwvbgc7q81vx" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -695,7 +695,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuj1los0000tcvb4wimhhww" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuje1920001gwvb8in6cf11" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -801,7 +801,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuj1lox0002tcvbcxzq93hq" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuje18z0000gwvb7s9n7mpq" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -848,7 +848,7 @@
           </li>
         
           <li>
-            <a href="/2022/02/19/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
+            <a href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
           </li>
         
           <li>
