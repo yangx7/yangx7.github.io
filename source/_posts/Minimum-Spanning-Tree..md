@@ -134,16 +134,16 @@ class Solution {
 
 **Time Complexity: <span style="background-color:yellow">O(ElogE)</span>**
 
-- V represents the number of vertices, E represents the total number of edges. In our template, `E = V²`.
+- V represents the number of vertices, E represents the total number of edges. In our template, `E = V · (V - 1)`.
 - Building a priority queue takes O(ElogE) time.
 - To construct MST using Kruskal's algorithm, We pop out each edge from the priority queue, and for each edge, we will look at whether both of the vertices of the edge belong to the same connected component and connect them if they do not belong to the same connected component. We only need `V - 1` edges to build MST, but in the worst case, the tree will not be complete until we reach the very last edge whose weight is the largest, it takes O(E) iterations. So it totally takes O(ElogE) time to pop out all edges from priority queue, to check connectivity and union vertices in the Union Find data structure totally takes O(Eα(V)) time, we can regard it as O(E) time.
 - Therefore, in total, the time complexity is `O(ElogE) + O(ElogE) + O(E) = O(ElogE)` time.
 
-**Space Complexity: <span style="background-color:yellow">O(E + V)</span>**
+**Space Complexity: <span style="background-color:yellow">O(V + E)</span>**
 
 - E represents the number of edges. Store all edges in a priority queue takes O(E) sapce.
 - V represents the number of vertices, Using the Union Find data structure requires O(V) space.
-- Therefore, in total, the space complexity is `O(E) + O(V) = O(E + V)` time.
+- Therefore, in total, the space complexity is `O(V) + O(E) = O(V + E)` time.
 
 ### <span style="color:red">Prim's Algorithm</span>
 
@@ -222,7 +222,7 @@ class Solution {
 
 **Time Complexity: <span style="background-color:yellow">O(ElogV)</span>**
 
-- V represents the number of vertices, E represents the total number of edges. In our template, `E = V²`.
+- V represents the number of vertices, E represents the total number of edges. In our template, `E = V · (V - 1)`.
 - We need O(V + E) time to traverse all the vertices of the graph, and we store in the heap all the vertices that are not yet included in our MST.
 - Pop out vertices from priority queue takes O(logV) time.
 - Therefore, the overall time complexity is `O(V + E) · O(log V) = O(ElogV)`.
