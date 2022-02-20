@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuj0f9q0002y8vb2fv7cxxc" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuj1loy0003tcvb1ggv246s" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -243,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree./" data-id="ckzuj0f9r0003y8vb15hme1ms" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree./" data-id="ckzuj1lp00007tcvbgvxchi1s" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
       
       
       
@@ -363,7 +363,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuj0f9p0001y8vbckg53vie" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuj1low0001tcvbapwxgld9" data-title="Breadth First Search" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
+<ul>
+<li>Traverse all nodes in a graph, tree or 2D array.</li>
+<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
+<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
+</ul>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuj1loy0004tcvbhbb3flto" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -451,54 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuj0f9s0005y8vbeb85385z" data-title="Disjoint Set" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
-  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
-<ul>
-<li>Traverse all nodes in a graph, tree or 2D array.</li>
-<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
-<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
-</ul>
-<hr>
-<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuj0f9s0006y8vbf7dfetov" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuj1loz0005tcvbbd31bqe9" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -584,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuj0f9v0007y8vb4yn57oi4" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuj1lp00006tcvbgmc5cwzk" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -695,7 +695,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuj0f9l0000y8vb0wmwfedi" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuj1los0000tcvb4wimhhww" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -801,7 +801,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuj0f9r0004y8vb1phz8u9p" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuj1lox0002tcvbcxzq93hq" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -856,11 +856,11 @@
           </li>
         
           <li>
-            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
+            <a href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
           </li>
         
           <li>
-            <a href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
           </li>
         
       </ul>
