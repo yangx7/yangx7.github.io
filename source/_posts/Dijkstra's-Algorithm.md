@@ -36,14 +36,13 @@ we need to find the shortest path costing minimum weight to reach the target nod
 int Dijkstra(int n, int[][] edges, int source, int target) {
   // Create the adjacency list of the graph
   Map<Integer, List<int[]>> adj = new HashMap<>();
-  for (int i = 1; i <= n; i++) {
+  for (int i = 0; i < n; i++) {
     map.put(i, new ArrayList<>());
   }
 
   for (int[] edge : edges) {
     adj.get(edge[0]).add(new int[]{edge[1], edge[2]});
   }
-
 
   int[] paths = new int[n];
   Arrays.fill(paths, Integer.MAX_VALUE);
@@ -90,7 +89,7 @@ int Dijkstra(int n, int[][] edges, int source, int target) {
 **Space Complexity: <span style="background-color:yellow">O(V + E)</span>**
 
 - Building the adjacency list will take O(E) space.
-- Keep the paths array take O(V) space.
+- Keep the paths array takes O(V) space.
 - Each vertex could be added to the priority queue `V - 1` times, so in total priority queue takes `O(V · (V - 1)) = O(E)` space.
 - Therefore, the overall space complexity is `O(V) + O(E) = O(V + E)`.
 
