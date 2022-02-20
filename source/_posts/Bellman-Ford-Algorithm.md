@@ -101,7 +101,7 @@ int Bellman-Ford(int n, int[][] edges, int source, int target) {
   // Create the adjacency list of the graph
   Map<Integer, List<int[]>> adj = new HashMap<>();
   for (int i = 0; i < n; i++) {
-    map.put(i, new ArrayList<>());
+    adj.put(i, new ArrayList<>());
   }
 
   for (int[] edge : edges) {
