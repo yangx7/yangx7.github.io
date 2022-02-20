@@ -1,6 +1,6 @@
 ---
 title: Minimum Spanning Tree
-date: 2022-02-18
+date: 2022-02-19
 tags:
 ---
 
