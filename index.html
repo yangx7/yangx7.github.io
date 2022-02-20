@@ -71,6 +71,109 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Bellman-Ford-Algorithm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/19/Bellman-Ford-Algorithm/" class="article-date">
+  <time class="dt-published" datetime="2022-02-19T08:00:00.000Z" itemprop="datePublished">2022-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/19/Bellman-Ford-Algorithm/">Bellman Ford Algorithm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Bellman-Ford-Algorithm"><a href="#What-is-Bellman-Ford-Algorithm" class="headerlink" title="What is Bellman Ford Algorithm?"></a><span style="color:red">What is Bellman Ford Algorithm?</span></h3><ul>
+<li>Bellman Ford Algorithm is an <span style="background-color:yellow"><strong>algorithm</strong></span> used to solve the “single-source shortest path” problem in a <strong>weighted directed graph with negative weights</strong>.</li>
+<li>“single source shortest path” problem is explained in the <a href="../Dijkstra's-Algorithm/">Dijkstra’s-Algorithm</a> post.</li>
+<li>Edge Relaxation: it is the operation to find a shorter distance path from the source to the target node and update current record.</li>
+</ul>
+<h3 id="Two-Basic-Theorems-to-support-Bellman-Ford-Algorithm"><a href="#Two-Basic-Theorems-to-support-Bellman-Ford-Algorithm" class="headerlink" title="Two Basic Theorems to support Bellman Ford Algorithm"></a><span style="color:red">Two Basic Theorems to support Bellman Ford Algorithm</span></h3><ol>
+<li>In a “graph with no negative-weight cycles” with N vertices, the shortest path between any two vertices has at most <code>N - 1</code> edges. Thus, Bellman Ford Algorithm can detect whether there exists a “negative weight cycle” in the graph.<br><strong>Detection method</strong>: After relaxing each edge <code>N - 1</code> times, perform the Nth relaxation. According to the Bellman Ford algorithm, all distances must be the shortest after relaxing each edge <code>N - 1</code> times. However, after the Nth relaxation, if there exists distances[u] + weight(u, v) &lt; distances(v) for any edge(u, v), it means there is a shorter path. At this point, we can conclude that there exists a “negative weight cycle”.</li>
+<li>In a “graph with negative weight cycles”, there is no shortest path.</li>
+</ol>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Implement Bellman Ford algorithm with Dynamic Programming if we have the constraint that at most k edges are allowed from the source vertex to target vertex. If we don’t have this constraint, k is actually equals to <code>N - 1</code>, because based on theorem 1, the shortest path between any two vertices has at most <code>N - 1</code> edges.</strong></p>
+<p><strong>Algorithm</strong>:</p>
+<ol>
+<li> Initialize two arrays prev and curr with a large value, set the source node value to 0.</li>
+<li> Traverse all edges(u, v) and update the curr array curr[v] by picking the minimum between curr[v] and <code>prev[u] + weight</code>.</li>
+<li> Repeat step 2 until K iterations are done.</li>
+<li> If curr[target] is still the large value we initialized the array with, it means the target is not reachable from the source, return -1. Otherwise, return curr[target].</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path having at most k edges to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target, <span class="keyword">int</span> k) &#123;</span><br><span class="line">  <span class="keyword">if</span> (source == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// after k iterations, prev array keeps the shortest path from souce to any vertices if at most k - 1 edges are allowed</span></span><br><span class="line">  <span class="keyword">int</span>[] prev = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  <span class="comment">// after k iterations, curr array keeps the shortest path from souce to any vertices if at most k edges are allowed</span></span><br><span class="line">  <span class="keyword">int</span>[] curr = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(prev, Integer.MAX_VALUE);</span><br><span class="line">  Arrays.fill(curr, Integer.MAX_VALUE);</span><br><span class="line">  prev[source] = <span class="number">0</span>;</span><br><span class="line">  curr[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">      <span class="keyword">int</span> from = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> to = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">2</span>];</span><br><span class="line">      <span class="keyword">if</span> (prev[from] &lt; Integer.MAX_VALUE) &#123;</span><br><span class="line">        curr[to] = Math.min(curr[to], prev[from] + weight);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    prev = curr.clone();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> curr[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : curr[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time Complexity: <span style="background-color:yellow">O(k · E)</span></strong><br>we have k iterations and in each iteration, we go over all the edges in the graph.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V)</span></strong><br>V represents the number of vertices, we keep two arrays of length V.</p>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">https://leetcode.com/problems/cheapest-flights-within-k-stops/</a></li>
+</ul>
+<hr>
+<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><p><strong>Implement Bellman Ford algorithm with “the Shortest Path Faster Algorithm” (SPFA algorithm). Note here we do not have the constraint that at most k edges are allowed from the source vertex to target vertex.</strong></p>
+<p><strong>Algorithm</strong>:</p>
+<ol>
+<li> Initialize an array with a large value to keep the shortest path from the source to other vertices, set source vertex value to 0.</li>
+<li> Initialize a queue and put the source to the queue.</li>
+<li> Pop out the head from the queue, traverse all edges starting from the head and update the shortest path array, if any vertex value is changed, put it back to the queue since it may also impact other vertices value in the shortest path array.</li>
+<li> Repeat step 3 and 4 until the queue is empty.</li>
+<li> If arr[target] is still the large value we initialized the array with, it means the target is not reachable from the source, return -1. Otherwise, return arr[target].</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span> Bellman-Ford(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target) &#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">  queue.offer(source);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span> curr = queue.poll();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : adj.get(curr)) &#123;</span><br><span class="line">      <span class="keyword">int</span> next = edge[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> weight = edge[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (paths[curr] + weight &lt; paths[next]) &#123;</span><br><span class="line">        paths[next] = paths[curr] + weight;</span><br><span class="line">        queue.offer(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time Complexity: <span style="background-color:yellow">O(V · E)</span></strong></p>
+<ul>
+<li>V represents the number of vertices, and E represents the number of edges.</li>
+<li>Build the adjacency list takes O(V + E) time.</li>
+<li>We iterate through all the vertices, and in each iteration, we’ll perform a relaxation operation for each appropriate edge. Therefore, the time complexity would be O(V · E).</li>
+<li>Therefore, the overall time complexity is <code>O(V + E) + O(V · E) = O(V · E)</code>.</li>
+<li>On average, the SPFA tends to be faster than the template 1 if there is no constraint of at most k edges are allowed.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
+<ul>
+<li>Building the adjacency list will take O(E) space.</li>
+<li>Keep the paths array takes O(V) space.</li>
+<li>The queue keeps at most V vertices, it takes O(V) space.</li>
+<li>Therefore, the overall space complexity is <code>O(V) + O(E) = O(V + E)</code>.</li>
+</ul>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/path-with-minimum-effort/">https://leetcode.com/problems/path-with-minimum-effort/</a></li>
+</ul>
+<h3 id="Difference-between-BFS-Dijkstra’s-Algorithm-and-Bellman-Ford-Algorithm-in-finding-shortest-path"><a href="#Difference-between-BFS-Dijkstra’s-Algorithm-and-Bellman-Ford-Algorithm-in-finding-shortest-path" class="headerlink" title="Difference between BFS, Dijkstra’s Algorithm and Bellman Ford Algorithm in finding shortest path"></a><span style="color:red">Difference between BFS, Dijkstra’s Algorithm and Bellman Ford Algorithm in finding shortest path</span></h3><ul>
+<li>BFS can find the shortest path from the source to the target in a tree, 2D array or unweighted graph.</li>
+<li>Dijkstra’s Algorithm can find the shortest path in the weighted directed graph with non-negative weights.</li>
+<li>Bellman Ford Algorithm can find the shortest path in the weighted directed graph with negative weights, so it can cover cases of Dijkstra’s Algorithm.</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3864/">https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3864/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzuzmdy20001jsvb2izsf9k2" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Dijkstra&#39;s-Algorithm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/02/19/Dijkstra's-Algorithm/" class="article-date">
@@ -122,7 +225,7 @@
 </li>
 <li> Find the value paths[targetNode], if the value is still the large value we initialized the array with, it means the targetNode is not reachable from the startNode, return -1. Otherwise, return the value we get in the array.</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>related questions:</strong></p>
 <ul>
@@ -139,7 +242,7 @@
 <p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
 <ul>
 <li>Building the adjacency list will take O(E) space.</li>
-<li>Keep the paths array take O(V) space.</li>
+<li>Keep the paths array takes O(V) space.</li>
 <li>Each vertex could be added to the priority queue <code>V - 1</code> times, so in total priority queue takes <code>O(V · (V - 1)) = O(E)</code> space.</li>
 <li>Therefore, the overall space complexity is <code>O(V) + O(E) = O(V + E)</code>.</li>
 </ul>
@@ -150,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuje1950004gwvb468t4l0s" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuzmdy60006jsvbhetq6my3" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -243,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzuje1960006gwvbdoq10f5b" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzuzmdy90007jsvb2tue4wps" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
       
       
       
@@ -363,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuje1930002gwvb4xjv19v1" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuzmdy30002jsvb7esc0yqw" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -410,7 +513,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuje1940003gwvbakushj99" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuzmdy40003jsvbbkli7bhg" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -498,7 +601,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuje1950005gwvbh43ladri" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuzmdy50005jsvb4jjzdcdl" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -584,7 +687,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuje1990007gwvbgc7q81vx" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuzmdy90008jsvbfbovdyvt" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -695,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuje1920001gwvb8in6cf11" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuzmdxz0000jsvb93tmg1rr" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -801,7 +904,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuje18z0000gwvb7s9n7mpq" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuzmdy50004jsvbetpj8v3u" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -844,6 +947,10 @@
       <ul>
         
           <li>
+            <a href="/2022/02/19/Bellman-Ford-Algorithm/">Bellman Ford Algorithm</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
           </li>
         
@@ -857,10 +964,6 @@
         
           <li>
             <a href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
           </li>
         
       </ul>
