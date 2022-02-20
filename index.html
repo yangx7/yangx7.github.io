@@ -71,6 +71,97 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Dijkstra&#39;s-Algorithm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/19/Dijkstra's-Algorithm/" class="article-date">
+  <time class="dt-published" datetime="2022-02-19T08:00:00.000Z" itemprop="datePublished">2022-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Dijkstra’s-Algorithm"><a href="#What-is-Dijkstra’s-Algorithm" class="headerlink" title="What is Dijkstra’s Algorithm?"></a><span style="color:red">What is Dijkstra’s Algorithm?</span></h3><ul>
+<li>Dijkstra’s algorithm is an <span style="background-color:yellow"><strong>algorithm</strong></span> used to solve the “single-source shortest path” problem in a <strong>weighted directed graph with non-negative weights</strong>.</li>
+<li>“single source shortest path” problems: Given the starting vertex, find the shortest path to any of the vertices in a weighted graph. Once we solve this, we can easily acquire the shortest paths between the starting vertex and a given target vertex.</li>
+<li>Note the difference between unweighted graphs and weighted graphs, below left is an unweighted graph, every edge has the same weight/distance; right is a weighted graph, every edge may have different weight/distance.<table>
+<thead>
+<tr>
+<th>Unweighted Graph</th>
+<th>Weighted Graph</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://s2.loli.net/2022/02/20/Glpw74LOD3Un9MI.jpg" width="60%" align="left"></td>
+<td><img src="https://s2.loli.net/2022/02/20/iDa85eU6QdbC2pc.jpg" width="60%" align="left"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="Implement-Dijkstra’s-Algorithm"><a href="#Implement-Dijkstra’s-Algorithm" class="headerlink" title="Implement Dijkstra’s Algorithm"></a><span style="color:red">Implement Dijkstra’s Algorithm</span></h3><p>Main idea is taking the starting point as the center and gradually expand outward while updating the shortest path to reach other vertices. Dijkstra’s Algorithm uses a “greedy approach”. Each step selects the “minimum weight” from the currently reached vertices to find the shortest path to other vertices.</p>
+<p><strong>Algorithm</strong>:</p>
+<ol>
+<li> For all vertices, initialize the paths table with a large value, so far, no vertex has been visited.</li>
+<li>Initialize min heap with the pair of startNode and its distance 0, store its distance in paths as 0. While the min heap is not empty:<ul>
+<li>Pop out the currNode from the min heap.</li>
+<li>Traverse all outgoing edges connected to currNode.</li>
+<li>Add the neighborNode to the min heap only if the current path is less than the value at paths[neighborNode]. Update its value to current path value.</li>
+</ul>
+</li>
+<li> Find the value paths[targetNode], if the value is still the large value we initialized the array with, it means the targetNode is not reachable from the startNode, return -1. Otherwise, return the value we get in the array.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/network-delay-time/">https://leetcode.com/problems/network-delay-time/</a></li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + ElogE)</span></strong></p>
+<ul>
+<li>V represents the number of vertices, and E represents the number of edges. The value of E can be at most <code>V · (V - 1)</code>.</li>
+<li>Build the adjacency list takes O(V + E) time.</li>
+<li>The maximum number of pairs that could be added to the priority queue is E. Thus, push and pop operations on the priority queue take O(logE) time.</li>
+<li>Although the number of vertices in the priority queue could be equal to E, we will only visit each vertex only once. In total E edges will be traversed, and for each edge, there could be one priority queue insertion operation. This takes O(ElogE) time.</li>
+<li>Therefore, the overall time complexity is <code>O(V + E) + O(ElogE) = O(V + ElogE)</code>.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
+<ul>
+<li>Building the adjacency list will take O(E) space.</li>
+<li>Keep the paths array take O(V) space.</li>
+<li>Each vertex could be added to the priority queue <code>V - 1</code> times, so in total priority queue takes <code>O(V · (V - 1)) = O(E)</code> space.</li>
+<li>Therefore, the overall space complexity is <code>O(V) + O(E) = O(V + E)</code>.</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3862/">https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3862/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuiw9ac0006isvba7tthilz" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Breadth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/02/18/Breadth-First-Search/" class="article-date">
@@ -179,7 +270,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuez5p200010wvb2ngzes77" data-title="Breadth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzuiw9a80001isvbc499fj5q" data-title="Breadth First Search" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
+<ul>
+<li>Traverse all nodes in a graph, tree or 2D array.</li>
+<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
+<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
+</ul>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuiw9a90002isvbdc6z79rs" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -267,54 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuez5p300020wvb9drrdk7g" data-title="Disjoint Set" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
-  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
-<ul>
-<li>Traverse all nodes in a graph, tree or 2D array.</li>
-<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
-<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
-</ul>
-<hr>
-<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzuez5p400040wvbai9w289j" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzuiw9aa0003isvb54g11s03" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -367,16 +458,16 @@
 
 <p><strong>Time Complexity: <span style="background-color:yellow">O(ElogE)</span></strong></p>
 <ul>
-<li>V represents the number of vertices, E represents the total number of edges. In our template, <code>E = V²</code>.</li>
+<li>V represents the number of vertices, E represents the total number of edges. In our template, <code>E = V · (V - 1)</code>.</li>
 <li>Building a priority queue takes O(ElogE) time.</li>
 <li>To construct MST using Kruskal’s algorithm, We pop out each edge from the priority queue, and for each edge, we will look at whether both of the vertices of the edge belong to the same connected component and connect them if they do not belong to the same connected component. We only need <code>V - 1</code> edges to build MST, but in the worst case, the tree will not be complete until we reach the very last edge whose weight is the largest, it takes O(E) iterations. So it totally takes O(ElogE) time to pop out all edges from priority queue, to check connectivity and union vertices in the Union Find data structure totally takes O(Eα(V)) time, we can regard it as O(E) time.</li>
 <li>Therefore, in total, the time complexity is <code>O(ElogE) + O(ElogE) + O(E) = O(ElogE)</code> time.</li>
 </ul>
-<p><strong>Space Complexity: <span style="background-color:yellow">O(E + V)</span></strong></p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
 <ul>
 <li>E represents the number of edges. Store all edges in a priority queue takes O(E) sapce.</li>
 <li>V represents the number of vertices, Using the Union Find data structure requires O(V) space.</li>
-<li>Therefore, in total, the space complexity is <code>O(E) + O(V) = O(E + V)</code> time.</li>
+<li>Therefore, in total, the space complexity is <code>O(V) + O(E) = O(V + E)</code> time.</li>
 </ul>
 <h3 id="Prim’s-Algorithm"><a href="#Prim’s-Algorithm" class="headerlink" title="Prim’s Algorithm"></a><span style="color:red">Prim’s Algorithm</span></h3><p>Prim’s algorithm is an <span style="background-color:yellow"><strong>algorithm</strong></span> to construct a MST of a weighted undirected graph.</p>
 <p><strong>Algorithm</strong>:</p>
@@ -391,7 +482,7 @@
 
 <p><strong>Time Complexity: <span style="background-color:yellow">O(ElogV)</span></strong></p>
 <ul>
-<li>V represents the number of vertices, E represents the total number of edges. In our template, <code>E = V²</code>.</li>
+<li>V represents the number of vertices, E represents the total number of edges. In our template, <code>E = V · (V - 1)</code>.</li>
 <li>We need O(V + E) time to traverse all the vertices of the graph, and we store in the heap all the vertices that are not yet included in our MST.</li>
 <li>Pop out vertices from priority queue takes O(logV) time.</li>
 <li>Therefore, the overall time complexity is <code>O(V + E) · O(log V) = O(ElogV)</code>.</li>
@@ -407,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Minimum-Spanning-Tree./" data-id="ckzuez5p500050wvb5qzsccwy" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Minimum-Spanning-Tree./" data-id="ckzuiw9ab0005isvbfa8a7vz1" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
       
       
       
@@ -493,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuez5p500060wvbg1zne11y" data-title="Trie" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzuiw9af0007isvb28oe88ab" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -604,7 +695,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuez5oy00000wvbap3dcbi7" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzuiw9ab0004isvb2wsk7sg4" data-title="Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -710,7 +801,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuez5p300030wvbeqc8co3g" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzuiw9a40000isvbdt98b6cj" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -753,11 +844,11 @@
       <ul>
         
           <li>
-            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
+            <a href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
           </li>
         
           <li>
-            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
+            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
           </li>
         
           <li>
@@ -765,11 +856,11 @@
           </li>
         
           <li>
-            <a href="/2022/02/18/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
+            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
           </li>
         
           <li>
-            <a href="/2022/02/18/Trie/">Trie</a>
+            <a href="/2022/02/18/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
           </li>
         
       </ul>

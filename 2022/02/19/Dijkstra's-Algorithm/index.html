@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Dijkstra&#39;s Algorithm | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="What is Dijkstra’s Algorithm? Dijkstra’s algorithm is an algorithm used to solve the “single-source shortest path” problem in a weighted directed graph with non-negative weights. “single source shorte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dijkstra&#39;s Algorithm">
+<meta property="og:url" content="http://example.com/2022/02/19/Dijkstra's-Algorithm/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="What is Dijkstra’s Algorithm? Dijkstra’s algorithm is an algorithm used to solve the “single-source shortest path” problem in a weighted directed graph with non-negative weights. “single source shorte">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/02/20/Glpw74LOD3Un9MI.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/02/20/iDa85eU6QdbC2pc.jpg">
+<meta property="article:published_time" content="2022-02-19T08:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-20T00:17:27.304Z">
+<meta property="article:author" content="Yang Xiao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/02/20/Glpw74LOD3Un9MI.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Dijkstra&#39;s-Algorithm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/19/Dijkstra's-Algorithm/" class="article-date">
+  <time class="dt-published" datetime="2022-02-19T08:00:00.000Z" itemprop="datePublished">2022-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Dijkstra&#39;s Algorithm
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Dijkstra’s-Algorithm"><a href="#What-is-Dijkstra’s-Algorithm" class="headerlink" title="What is Dijkstra’s Algorithm?"></a><span style="color:red">What is Dijkstra’s Algorithm?</span></h3><ul>
+<li>Dijkstra’s algorithm is an <span style="background-color:yellow"><strong>algorithm</strong></span> used to solve the “single-source shortest path” problem in a <strong>weighted directed graph with non-negative weights</strong>.</li>
+<li>“single source shortest path” problems: Given the starting vertex, find the shortest path to any of the vertices in a weighted graph. Once we solve this, we can easily acquire the shortest paths between the starting vertex and a given target vertex.</li>
+<li>Note the difference between unweighted graphs and weighted graphs, below left is an unweighted graph, every edge has the same weight/distance; right is a weighted graph, every edge may have different weight/distance.<table>
+<thead>
+<tr>
+<th>Unweighted Graph</th>
+<th>Weighted Graph</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://s2.loli.net/2022/02/20/Glpw74LOD3Un9MI.jpg" width="60%" align="left"></td>
+<td><img src="https://s2.loli.net/2022/02/20/iDa85eU6QdbC2pc.jpg" width="60%" align="left"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="Implement-Dijkstra’s-Algorithm"><a href="#Implement-Dijkstra’s-Algorithm" class="headerlink" title="Implement Dijkstra’s Algorithm"></a><span style="color:red">Implement Dijkstra’s Algorithm</span></h3><p>Main idea is taking the starting point as the center and gradually expand outward while updating the shortest path to reach other vertices. Dijkstra’s Algorithm uses a “greedy approach”. Each step selects the “minimum weight” from the currently reached vertices to find the shortest path to other vertices.</p>
+<p><strong>Algorithm</strong>:</p>
+<ol>
+<li> For all vertices, initialize the paths table with a large value, so far, no vertex has been visited.</li>
+<li>Initialize min heap with the pair of startNode and its distance 0, store its distance in paths as 0. While the min heap is not empty:<ul>
+<li>Pop out the currNode from the min heap.</li>
+<li>Traverse all outgoing edges connected to currNode.</li>
+<li>Add the neighborNode to the min heap only if the current path is less than the value at paths[neighborNode]. Update its value to current path value.</li>
+</ul>
+</li>
+<li> Find the value paths[targetNode], if the value is still the large value we initialized the array with, it means the targetNode is not reachable from the startNode, return -1. Otherwise, return the value we get in the array.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">We are give a graph with n nodes labeled from 0 to n - 1.</span></span><br><span class="line"><span class="comment">An array edges listing all directed edges of a graph.</span></span><br><span class="line"><span class="comment">edges[i] = (ui, vi, wi), where ui is the source node, vi is the target node, wi is the weight it takes from ui to vi.</span></span><br><span class="line"><span class="comment">we need to find the shortest path costing minimum weight to reach the target node from the source node.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span> source, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Create the adjacency list of the graph</span></span><br><span class="line">  Map&lt;Integer, List&lt;<span class="keyword">int</span>[]&gt;&gt; adj = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    map.put(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">    adj.get(edge[<span class="number">0</span>]).add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;edge[<span class="number">1</span>], edge[<span class="number">2</span>]&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] paths = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">  Arrays.fill(paths, Integer.MAX_VALUE);</span><br><span class="line">  paths[source] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  PriorityQueue&lt;<span class="keyword">int</span>[]&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1[<span class="number">1</span>] - v2[<span class="number">1</span>]);</span><br><span class="line">  pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;source, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] curr = pq.poll();</span><br><span class="line">    <span class="keyword">int</span> currNode = curr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> weight = curr[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (weight &gt; paths[currNode]) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>[] next : adj.get(currNode)) &#123;</span><br><span class="line">      <span class="keyword">int</span> nextNode = next[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">int</span> nextWeight = next[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (weight + nextWeight &lt; paths[nextNode]) &#123;</span><br><span class="line">        paths[nextNode] = weight + nextWeight;</span><br><span class="line">        pq.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;nextNode, paths[nextNode]&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> paths[target] == Integer.MAX_VALUE ? -<span class="number">1</span> : paths[target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/network-delay-time/">https://leetcode.com/problems/network-delay-time/</a></li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + ElogE)</span></strong></p>
+<ul>
+<li>V represents the number of vertices, and E represents the number of edges. The value of E can be at most <code>V · (V - 1)</code>.</li>
+<li>Build the adjacency list takes O(V + E) time.</li>
+<li>The maximum number of pairs that could be added to the priority queue is E. Thus, push and pop operations on the priority queue take O(logE) time.</li>
+<li>Although the number of vertices in the priority queue could be equal to E, we will only visit each vertex only once. In total E edges will be traversed, and for each edge, there could be one priority queue insertion operation. This takes O(ElogE) time.</li>
+<li>Therefore, the overall time complexity is <code>O(V + E) + O(ElogE) = O(V + ElogE)</code>.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V + E)</span></strong></p>
+<ul>
+<li>Building the adjacency list will take O(E) space.</li>
+<li>Keep the paths array take O(V) space.</li>
+<li>Each vertex could be added to the priority queue <code>V - 1</code> times, so in total priority queue takes <code>O(V · (V - 1)) = O(E)</code> space.</li>
+<li>Therefore, the overall space complexity is <code>O(V) + O(E) = O(V + E)</code>.</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3862/">https://leetcode.com/explore/learn/card/graph/622/single-source-shortest-path-algorithm/3862/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzuiw9ac0006isvba7tthilz" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/18/Breadth-First-Search/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Breadth First Search</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Breadth-First-Search/">Breadth First Search</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Disjoint-Set/">Disjoint Set</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/18/Minimum-Spanning-Tree./">Minimum Spanning Tree</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Yang Xiao<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
