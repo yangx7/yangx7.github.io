@@ -71,6 +71,117 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Binary-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/17/Binary-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-17T08:00:00.000Z" itemprop="datePublished">2022-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/17/Binary-Search/">Binary Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Binary-Search"><a href="#What-is-Binary-Search" class="headerlink" title="What is Binary Search?"></a><span style="color:red">What is Binary Search?</span></h3><p>Binary Search is an <span style="background-color:yellow"><strong>algorithm</strong></span> that divides the search space in 2 after every comparison. Binary Search should be considered every time you need to search for an index or element in a collection. If the collection is unordered, we can always sort it first before applying Binary Search.</p>
+<h3 id="3-Parts-of-a-Successful-Binary-Search"><a href="#3-Parts-of-a-Successful-Binary-Search" class="headerlink" title="3 Parts of a Successful Binary Search"></a><span style="color:red">3 Parts of a Successful Binary Search</span></h3><p>Binary Search is generally composed of 3 main sections:</p>
+<ul>
+<li><span style="background-color:yellow"><strong>Pre-processing</strong></span>: Sort if collection is unsorted.</li>
+<li><span style="background-color:yellow"><strong>Binary Search</strong></span>: Using a loop or recursion to divide search space in half after each comparison.</li>
+<li><span style="background-color:yellow"><strong>Post-processing</strong></span>: Determine viable candidates in the remaining space.</li>
+</ul>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Template 1 is the most basic and elementary form of Binary Search. It is used to search for an element or condition which can be determined by accessing a single index in the array.</p>
+<h4 id="Distinguishing-Syntax"><a href="#Distinguishing-Syntax" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
+<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length - 1</strong></span></li>
+<li>Termination: <span style="background-color:yellow"><strong>left &gt; right</strong></span></li>
+<li>Searching Left: <span style="background-color:yellow"><strong>right = mid - 1</strong></span></li>
+<li>Searching Right: <span style="background-color:yellow"><strong>left = mid + 1</strong></span></li>
+</ul>
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>Most basic and elementary form of Binary Search.</li>
+<li>Search condition can be determined without comparing to the element’s neighbors.</li>
+<li>No post-processing required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found.</li>
+</ul>
+<hr>
+<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (left != nums.length &amp;&amp; nums[left] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Template 2 is an advanced form of Binary Search. It is used to search for an element or condition which requires accessing the current index and its immediate right neighbor’s index in the array.</p>
+<h4 id="Distinguishing-Syntax-1"><a href="#Distinguishing-Syntax-1" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
+<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length</strong></span></li>
+<li>Termination: <span style="background-color:yellow"><strong>left == right</strong></span></li>
+<li>Searching Left: <span style="background-color:yellow"><strong>right = mid</strong></span></li>
+<li>Searching Right: <span style="background-color:yellow"><strong>left = mid + 1</strong></span></li>
+</ul>
+<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>An advanced way to implement Binary Search.</li>
+<li>Search condition needs to access element’s immediate right neighbor.</li>
+<li>Use element’s right neighbor to determine if condition is met and decide whether to go left or right.</li>
+<li>Gurantee search space is at least 2 in size at each step.</li>
+<li>Post-processing required. Loop/Recursion ends when you have 1 element left. Need to assess if the remaining element meets the condition.</li>
+</ul>
+<hr>
+<h3 id="Template-3"><a href="#Template-3" class="headerlink" title="Template 3"></a><span style="color:red">Template 3</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left + <span class="number">1</span> &lt; right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nums[left] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nums[right] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Template 3 is another unique form of Binary Search. It is used to search for an element or condition which requires accessing the current index and its immediate left and right neighbor’s index in the array.</p>
+<h4 id="Distinguishing-Syntax-2"><a href="#Distinguishing-Syntax-2" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
+<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length - 1</strong></span></li>
+<li>Termination: <span style="background-color:yellow"><strong>left + 1 == right</strong></span></li>
+<li>Searching Left: <span style="background-color:yellow"><strong>right = mid</strong></span></li>
+<li>Searching Right: <span style="background-color:yellow"><strong>left = mid</strong></span></li>
+</ul>
+<h4 id="Key-Attributes-2"><a href="#Key-Attributes-2" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>An alternative way to implement Binary Search.</li>
+<li>Search condition needs to access element’s immediate left and right neighbors.</li>
+<li>Use element’s neighbors to determine if condition is met and decide whether to go left or right.</li>
+<li>Gurantee search space is at least 3 in size at each step.</li>
+<li>Post-processing required. Loop/Recursion ends when you have 2 elements left. Need to assess if the remaining elements meet the condition.</li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(logN)</span></strong><br>Binary Search operates by applying a condition to the value in the middle of the search space and thus cutting the search space in half, in the worst case, we will have to make O(logN) comparisons, where N is the number of elements in our input collection.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(1)</span></strong><br>Although, Binary Search does require keeping track of 3 indicies, the iterative solution does not typically require any other additional space and can be applied directly on the collection itself, therefore warrants O(1) or constant space.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Template 2 is widely used in one class of questions, that is to find the minimum or maximum possible value that meets a certain condition.</p>
+<p>To apply template 2, the question should satisfy these requirements:</p>
+<ul>
+<li>The question has limited number of consecutive candidates.</li>
+<li>The candidates can be divided into exactly two parts, the first consecutive part all meets the condition and no candidate from the second part meets the condition, or vice versa.</li>
+</ul>
+<p>The main idea is to gradually reach the extreme value required in the question. In each step, we need to make sure that the current value (int mid = left + (right - left) / 2) meets the condition. In the last step, the condition is not meet, then the second to last value is the value we want.</p>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-repeating-substring/">https://leetcode.com/problems/longest-repeating-substring/</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/koko-eating-bananas/">https://leetcode.com/problems/koko-eating-bananas/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/binary-search/">https://leetcode.com/explore/learn/card/binary-search/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzw6agpb0001qgvb511764qs" data-title="Binary Search" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Build-a-live-Blog-with-GitHub-Pages-and-Hexo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" class="article-date">
@@ -165,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzvw789m0003msvbedud85bc" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/04/17/Build-a-live-Blog-with-GitHub-Pages-and-Hexo/" data-id="ckzw6agpe0004qgvb1w3409av" data-title="Build a live Blog with GitHub Pages and Hexo" class="article-share-link">Share</a>
       
       
       
@@ -217,6 +328,10 @@
           </li>
         
           <li>
+            <a href="/2022/02/20/Monotonic-Stack/">Monotonic Stack</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
           </li>
         
@@ -226,10 +341,6 @@
         
           <li>
             <a href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
           </li>
         
       </ul>

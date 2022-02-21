@@ -204,7 +204,84 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/20/Heap/" data-id="ckzvw789o0007msvb0tlt2cdc" data-title="Heap" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/20/Heap/" data-id="ckzw6agpg0007qgvbhe729ice" data-title="Heap" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Monotonic-Stack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/20/Monotonic-Stack/" class="article-date">
+  <time class="dt-published" datetime="2022-02-20T08:00:00.000Z" itemprop="datePublished">2022-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/20/Monotonic-Stack/">Monotonic Stack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Monotonic-Stack"><a href="#What-is-Monotonic-Stack" class="headerlink" title="What is Monotonic Stack?"></a><span style="color:red">What is Monotonic Stack?</span></h3><ul>
+<li>A Monotonic Stack is a stack with its elements ordered monotonically from stack bottom to top. So we have two kinds of monotonic stacks: <strong>monotonic increase stack</strong> and <strong>monotonic decrease stack</strong>.</li>
+<li>Monotonic Stack usually works as a <span style="background-color:yellow"><strong>technique</strong></span> to resolve problems that requires finding the next/previous greater/smaller element of each element in a collection.</li>
+<li>To obtain <strong>previous/next samller element</strong>, use <strong>monotonic increase stack</strong>.</li>
+<li>To obtain <strong>previous/next greater element</strong>, use <strong>monotonic decrease stack</strong>.</li>
+</ul>
+<h3 id="Basic-Template-for-monotonic-increase-stack"><a href="#Basic-Template-for-monotonic-increase-stack" class="headerlink" title="Basic Template for monotonic increase stack"></a><span style="color:red">Basic Template for monotonic increase stack</span></h3><p><strong>Get previous smaller element:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given an array nums, return a new array ans,</span></span><br><span class="line"><span class="comment">where ans[i] contains the previous samller element of nums[i] in the nums array.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span>[] previousSmallerElement(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">  <span class="keyword">int</span> n = nums.length;</span><br><span class="line">  Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="comment">// stack is a monotonic increase stack</span></span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &gt; nums[i]) &#123;</span><br><span class="line">      stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    ans[i] = stack.isEmpty() ? -<span class="number">1</span> : nums[stack.peek()];</span><br><span class="line">    <span class="comment">// store index instead of the value in the stack</span></span><br><span class="line">    stack.push(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Get next smaller element:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given an array nums, return a new array ans,</span></span><br><span class="line"><span class="comment">where ans[i] contains the next samller element of nums[i] in the nums array.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span>[] nextSmallerElement(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">  <span class="keyword">int</span> n = nums.length;</span><br><span class="line">  Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="comment">// stack is a monotonic increase stack</span></span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &gt; nums[i]) &#123;</span><br><span class="line">      ans[stack.pop()] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// store index instead of the value in the stack</span></span><br><span class="line">    stack.push(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if there is no next smaller element for some element, return -1</span></span><br><span class="line">  <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    ans[stack.pop()] = -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>To keep the stack monotonic increasing, once we find the peek element of the stack is larger than the current element to be pushed to the stack, pop out the current peek element from the stack.</li>
+<li>We push every element of the nums array to the stack once.</li>
+<li>Since it is easy to access the value by index, we usually store index instead of the value in the stack.</li>
+<li>To get previous smaller element, update ans[i] outside the while loop since current stack.peek() is less than nums[i].</li>
+<li>To get next smaller element, update ans[i] inside the while loop since each stack.peek() is greater than nums[i].</li>
+</ul>
+<h3 id="Basic-Template-for-monotonic-decrease-stack"><a href="#Basic-Template-for-monotonic-decrease-stack" class="headerlink" title="Basic Template for monotonic decrease stack"></a><span style="color:red">Basic Template for monotonic decrease stack</span></h3><p><strong>Get previous greater element:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given an array nums, return a new array ans,</span></span><br><span class="line"><span class="comment">where ans[i] contains the previous greater element of nums[i] in the nums array.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span>[] previousGreaterElement(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">  <span class="keyword">int</span> n = nums.length;</span><br><span class="line">  Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="comment">// stack is a monotonic decrease stack</span></span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &lt; nums[i]) &#123;</span><br><span class="line">      stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    ans[i] = stack.isEmpty() ? -<span class="number">1</span> : nums[stack.peek()];</span><br><span class="line">    <span class="comment">// store index instead of the value in the stack</span></span><br><span class="line">    stack.push(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Get next greater element:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given an array nums, return a new array ans,</span></span><br><span class="line"><span class="comment">where ans[i] contains the next greater element of nums[i] in the nums array.</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">int</span>[] nextGreaterElement(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">  <span class="keyword">int</span> n = nums.length;</span><br><span class="line">  Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="comment">// stack is a monotonic decrease stack</span></span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &lt; nums[i]) &#123;</span><br><span class="line">      ans[stack.pop()] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// store index instead of the value in the stack</span></span><br><span class="line">    stack.push(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if there is no next greater element for some element, return -1</span></span><br><span class="line">  <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    ans[stack.pop()] = -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>Similar to monotonic increase stack, to keep the stack monotonic decreasing, once we find the peek element of the stack is samller than the current element to be pushed to the stack, pop out the current peek element from the stack.</li>
+<li>To get previous greater element, update ans[i] outside the while loop since current stack.peek() is greater than nums[i].</li>
+<li>To get next greater element, update ans[i] inside the while loop since each stack.peek() is less than nums[i].</li>
+</ul>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-greater-element-i/">https://leetcode.com/problems/next-greater-element-i/</a></li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(N)</span></strong><br>N is the size of the given array. We traverse the array, push and pop every element from the array once, so it takes O(N) time.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(N)</span></strong><br>We keep a stack and in worst case, it stores all elements of the given array, so space complexity is O(N).</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sum-of-subarray-minimums/discuss/178876/stack-solution-with-very-detailed-explanation-step-by-step">https://leetcode.com/problems/sum-of-subarray-minimums/discuss/178876/stack-solution-with-very-detailed-explanation-step-by-step</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/20/Monotonic-Stack/" data-id="ckzw6agph0009qgvb3go7grt3" data-title="Monotonic Stack" class="article-share-link">Share</a>
       
       
       
@@ -270,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/20/Topological-Sorting/" data-id="ckzvw789p0009msvb692oardh" data-title="Topological Sorting" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/20/Topological-Sorting/" data-id="ckzw6agpi000bqgvb8j7fca16" data-title="Topological Sorting" class="article-share-link">Share</a>
       
       
       
@@ -373,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzvw789g0000msvb1gx0dbn7" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Bellman-Ford-Algorithm/" data-id="ckzw6agp80000qgvb0yskboon" data-title="Bellman Ford Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -464,7 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzvw789m0004msvb67s0484w" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Dijkstra's-Algorithm/" data-id="ckzw6agpf0005qgvb7zqq686e" data-title="Dijkstra&#39;s Algorithm" class="article-share-link">Share</a>
       
       
       
@@ -557,7 +634,92 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzvw789p0008msvb3qke3i7s" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/19/Minimum-Spanning-Tree/" data-id="ckzw6agpg0008qgvb28e0ht90" data-title="Minimum Spanning Tree" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
+  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
+<ul>
+<li>Traverse all nodes in a graph, tree or 2D array.</li>
+<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
+<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
+</ul>
+<hr>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>We are using the implicit stack provided by the system, also known as the Call Stack.</li>
+<li>If the depth of recursion is too high, you will suffer from stack overflow.</li>
+</ul>
+<hr>
+<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><p><strong>Template of DFS using an explicit stack to find if there is a path from curr node to target node.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node root, Node target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (root == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Deque&lt;Node&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  Set&lt;Node&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">  stack.push(root);</span><br><span class="line">  visited.add(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    Node curr = stack.pop();</span><br><span class="line">    <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">        stack.push(next);</span><br><span class="line">        visited.add(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>The logic is exactly the same with the recursion solution. But we use while loop and stack to simulate the system call stack during recursion.</li>
+</ul>
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + E)</span></strong><br>V represents the number of vertices, and E represents the number of edges. We need to check every vertex and traverse through every edge in the graph.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(V)</span></strong><br>Either the manually created stack or the recursive call stack can store up to V vertices.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>DFS can be used to find all paths from the source vertex to the target vertex on a directed acyclic graph (DAG)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1,</span></span><br><span class="line"><span class="comment">find all possible paths from node 0 to node n - 1 and return them in any order.</span></span><br><span class="line"><span class="comment">graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(<span class="keyword">int</span>[][] graph) &#123;</span><br><span class="line">  List&lt;List&lt;Integer&gt;&gt; paths = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  dfs(graph, <span class="number">0</span>, <span class="keyword">new</span> ArrayList&lt;&gt;(), paths);</span><br><span class="line">  <span class="keyword">return</span> paths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// this is also regarded as backtrack solution</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] graph, <span class="keyword">int</span> node, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; paths)</span> </span>&#123;</span><br><span class="line">  path.add(node);</span><br><span class="line">  <span class="keyword">if</span> (node == graph.length - <span class="number">1</span>) &#123;</span><br><span class="line">    paths.add(<span class="keyword">new</span> ArrayList&lt;&gt;(path));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> next : graph[node]) &#123;</span><br><span class="line">    dfs(graph, next, path, paths);</span><br><span class="line">    path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
+<ul>
+<li>V represents the number of vertices.</li>
+<li>For a directed acyclic graph (DAG) with V vertices, there could be at most 2<sup>V - 1</sup> - 1 possible paths to go from the starting vertex to the target vertex. We need O(V) time to build each such path.</li>
+<li>Therefore, a loose upper bound on the time complexity would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+<li>Since we have overlap between the paths, the actual time spent on the traversal will be lower to some extent.</li>
+</ul>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
+<ul>
+<li>The recursion depth can be no more than V, and we need O(V) space to store all the previously visited vertices while recursively traversing deeper with the current path.</li>
+<li>since at most we could have 2<sup>V - 1</sup> - 1 possible paths as the results and each path can contain up to V vertices, the space we need to store the results would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+<li>To sum up, the space complexity of the algorithm is O(V) + O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
+</ul>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/all-paths-from-source-to-target/">https://leetcode.com/problems/all-paths-from-source-to-target/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/">https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph">https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzw6agpd0002qgvb0mzt2mm6" data-title="Depth First Search" class="article-share-link">Share</a>
       
       
       
@@ -677,92 +839,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzvw789l0002msvb1icfccar" data-title="Breadth First Search" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Depth-First-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/18/Depth-First-Search/" class="article-date">
-  <time class="dt-published" datetime="2022-02-18T08:00:00.000Z" itemprop="datePublished">2022-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/18/Depth-First-Search/">Depth First Search</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="What-is-Depth-First-Search"><a href="#What-is-Depth-First-Search" class="headerlink" title="What is Depth First Search?"></a><span style="color:red">What is Depth First Search?</span></h3><p>Depth First Search (DFS) is an <span style="background-color:yellow"><strong>algorithm</strong></span> usually used to:</p>
-<ul>
-<li>Traverse all nodes in a graph, tree or 2D array.</li>
-<li>Search if there is a path from the root node to the target node in a graph, tree or 2D array.</li>
-<li>Find all paths from the root node to the target node in a graph, tree or 2D array.</li>
-</ul>
-<hr>
-<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p><strong>Recursion template of DFS to find if there is a path from curr node to target node.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initially visited should contain curr node</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node curr, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">      visited.add(next);</span><br><span class="line">      <span class="keyword">if</span> (DFS(next, target, visited)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
-<li>We are using the implicit stack provided by the system, also known as the Call Stack.</li>
-<li>If the depth of recursion is too high, you will suffer from stack overflow.</li>
-</ul>
-<hr>
-<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><p><strong>Template of DFS using an explicit stack to find if there is a path from curr node to target node.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node root, Node target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (root == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Deque&lt;Node&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">  Set&lt;Node&gt; visited = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">  stack.push(root);</span><br><span class="line">  visited.add(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">    Node curr = stack.pop();</span><br><span class="line">    <span class="keyword">if</span> (curr == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (Node next : curr.neighbors) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!visited.contains(next)) &#123;</span><br><span class="line">        stack.push(next);</span><br><span class="line">        visited.add(next);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
-<li>The logic is exactly the same with the recursion solution. But we use while loop and stack to simulate the system call stack during recursion.</li>
-</ul>
-<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(V + E)</span></strong><br>V represents the number of vertices, and E represents the number of edges. We need to check every vertex and traverse through every edge in the graph.</p>
-<p><strong>Space Complexity: <span style="background-color:yellow">O(V)</span></strong><br>Either the manually created stack or the recursive call stack can store up to V vertices.</p>
-<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>DFS can be used to find all paths from the source vertex to the target vertex on a directed acyclic graph (DAG)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1,</span></span><br><span class="line"><span class="comment">find all possible paths from node 0 to node n - 1 and return them in any order.</span></span><br><span class="line"><span class="comment">graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(<span class="keyword">int</span>[][] graph) &#123;</span><br><span class="line">  List&lt;List&lt;Integer&gt;&gt; paths = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  dfs(graph, <span class="number">0</span>, <span class="keyword">new</span> ArrayList&lt;&gt;(), paths);</span><br><span class="line">  <span class="keyword">return</span> paths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// this is also regarded as backtrack solution</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] graph, <span class="keyword">int</span> node, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; paths)</span> </span>&#123;</span><br><span class="line">  path.add(node);</span><br><span class="line">  <span class="keyword">if</span> (node == graph.length - <span class="number">1</span>) &#123;</span><br><span class="line">    paths.add(<span class="keyword">new</span> ArrayList&lt;&gt;(path));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> next : graph[node]) &#123;</span><br><span class="line">    dfs(graph, next, path, paths);</span><br><span class="line">    path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Time Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
-<ul>
-<li>V represents the number of vertices.</li>
-<li>For a directed acyclic graph (DAG) with V vertices, there could be at most 2<sup>V - 1</sup> - 1 possible paths to go from the starting vertex to the target vertex. We need O(V) time to build each such path.</li>
-<li>Therefore, a loose upper bound on the time complexity would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
-<li>Since we have overlap between the paths, the actual time spent on the traversal will be lower to some extent.</li>
-</ul>
-<p><strong>Space Complexity: <span style="background-color:yellow">O(2<sup>V</sup> · V)</span></strong></p>
-<ul>
-<li>The recursion depth can be no more than V, and we need O(V) space to store all the previously visited vertices while recursively traversing deeper with the current path.</li>
-<li>since at most we could have 2<sup>V - 1</sup> - 1 possible paths as the results and each path can contain up to V vertices, the space we need to store the results would be O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
-<li>To sum up, the space complexity of the algorithm is O(V) + O(2<sup>V - 1</sup> - 1) · O(V) = O(2<sup>V</sup> · V).</li>
-</ul>
-<p><strong>related questions:</strong></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/all-paths-from-source-to-target/">https://leetcode.com/problems/all-paths-from-source-to-target/</a></li>
-</ul>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/">https://leetcode.com/explore/learn/card/queue-stack/232/practical-application-stack/</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph">https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Depth-First-Search/" data-id="ckzvw789n0005msvbcm5mbaa7" data-title="Depth First Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Breadth-First-Search/" data-id="ckzw6agpd0003qgvb82nj5f7n" data-title="Breadth First Search" class="article-share-link">Share</a>
       
       
       
@@ -850,7 +927,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzvw789o0006msvbbr3g0x83" data-title="Disjoint Set" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Disjoint-Set/" data-id="ckzw6agpf0006qgvb0lt015b5" data-title="Disjoint Set" class="article-share-link">Share</a>
       
       
       
@@ -936,118 +1013,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzvw789q000amsvb0v528euq" data-title="Trie" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Binary-Search" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/02/17/Binary-Search/" class="article-date">
-  <time class="dt-published" datetime="2022-02-17T08:00:00.000Z" itemprop="datePublished">2022-02-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/02/17/Binary-Search/">Binary Search</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="What-is-Binary-Search"><a href="#What-is-Binary-Search" class="headerlink" title="What is Binary Search?"></a><span style="color:red">What is Binary Search?</span></h3><p>Binary Search is an <span style="background-color:yellow"><strong>algorithm</strong></span> that divides the search space in 2 after every comparison. Binary Search should be considered every time you need to search for an index or element in a collection. If the collection is unordered, we can always sort it first before applying Binary Search.</p>
-<h3 id="3-Parts-of-a-Successful-Binary-Search"><a href="#3-Parts-of-a-Successful-Binary-Search" class="headerlink" title="3 Parts of a Successful Binary Search"></a><span style="color:red">3 Parts of a Successful Binary Search</span></h3><p>Binary Search is generally composed of 3 main sections:</p>
-<ul>
-<li><span style="background-color:yellow"><strong>Pre-processing</strong></span>: Sort if collection is unsorted.</li>
-<li><span style="background-color:yellow"><strong>Binary Search</strong></span>: Using a loop or recursion to divide search space in half after each comparison.</li>
-<li><span style="background-color:yellow"><strong>Post-processing</strong></span>: Determine viable candidates in the remaining space.</li>
-</ul>
-<hr>
-<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Template 1 is the most basic and elementary form of Binary Search. It is used to search for an element or condition which can be determined by accessing a single index in the array.</p>
-<h4 id="Distinguishing-Syntax"><a href="#Distinguishing-Syntax" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
-<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length - 1</strong></span></li>
-<li>Termination: <span style="background-color:yellow"><strong>left &gt; right</strong></span></li>
-<li>Searching Left: <span style="background-color:yellow"><strong>right = mid - 1</strong></span></li>
-<li>Searching Right: <span style="background-color:yellow"><strong>left = mid + 1</strong></span></li>
-</ul>
-<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
-<li>Most basic and elementary form of Binary Search.</li>
-<li>Search condition can be determined without comparing to the element’s neighbors.</li>
-<li>No post-processing required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found.</li>
-</ul>
-<hr>
-<h3 id="Template-2"><a href="#Template-2" class="headerlink" title="Template 2"></a><span style="color:red">Template 2</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (left != nums.length &amp;&amp; nums[left] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Template 2 is an advanced form of Binary Search. It is used to search for an element or condition which requires accessing the current index and its immediate right neighbor’s index in the array.</p>
-<h4 id="Distinguishing-Syntax-1"><a href="#Distinguishing-Syntax-1" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
-<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length</strong></span></li>
-<li>Termination: <span style="background-color:yellow"><strong>left == right</strong></span></li>
-<li>Searching Left: <span style="background-color:yellow"><strong>right = mid</strong></span></li>
-<li>Searching Right: <span style="background-color:yellow"><strong>left = mid + 1</strong></span></li>
-</ul>
-<h4 id="Key-Attributes-1"><a href="#Key-Attributes-1" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
-<li>An advanced way to implement Binary Search.</li>
-<li>Search condition needs to access element’s immediate right neighbor.</li>
-<li>Use element’s right neighbor to determine if condition is met and decide whether to go left or right.</li>
-<li>Gurantee search space is at least 2 in size at each step.</li>
-<li>Post-processing required. Loop/Recursion ends when you have 1 element left. Need to assess if the remaining element meets the condition.</li>
-</ul>
-<hr>
-<h3 id="Template-3"><a href="#Template-3" class="headerlink" title="Template 3"></a><span style="color:red">Template 3</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left + <span class="number">1</span> &lt; right) &#123;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">      <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</span><br><span class="line">      left = mid;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      right = mid;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nums[left] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nums[right] == target) &#123;</span><br><span class="line">    <span class="keyword">return</span> right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Template 3 is another unique form of Binary Search. It is used to search for an element or condition which requires accessing the current index and its immediate left and right neighbor’s index in the array.</p>
-<h4 id="Distinguishing-Syntax-2"><a href="#Distinguishing-Syntax-2" class="headerlink" title="Distinguishing Syntax:"></a>Distinguishing Syntax:</h4><ul>
-<li>Initial Condition: <span style="background-color:yellow"><strong>left = 0, right = length - 1</strong></span></li>
-<li>Termination: <span style="background-color:yellow"><strong>left + 1 == right</strong></span></li>
-<li>Searching Left: <span style="background-color:yellow"><strong>right = mid</strong></span></li>
-<li>Searching Right: <span style="background-color:yellow"><strong>left = mid</strong></span></li>
-</ul>
-<h4 id="Key-Attributes-2"><a href="#Key-Attributes-2" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
-<li>An alternative way to implement Binary Search.</li>
-<li>Search condition needs to access element’s immediate left and right neighbors.</li>
-<li>Use element’s neighbors to determine if condition is met and decide whether to go left or right.</li>
-<li>Gurantee search space is at least 3 in size at each step.</li>
-<li>Post-processing required. Loop/Recursion ends when you have 2 elements left. Need to assess if the remaining elements meet the condition.</li>
-</ul>
-<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(logN)</span></strong><br>Binary Search operates by applying a condition to the value in the middle of the search space and thus cutting the search space in half, in the worst case, we will have to make O(logN) comparisons, where N is the number of elements in our input collection.</p>
-<p><strong>Space Complexity: <span style="background-color:yellow">O(1)</span></strong><br>Although, Binary Search does require keeping track of 3 indicies, the iterative solution does not typically require any other additional space and can be applied directly on the collection itself, therefore warrants O(1) or constant space.</p>
-<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Template 2 is widely used in one class of questions, that is to find the minimum or maximum possible value that meets a certain condition.</p>
-<p>To apply template 2, the question should satisfy these requirements:</p>
-<ul>
-<li>The question has limited number of consecutive candidates.</li>
-<li>The candidates can be divided into exactly two parts, the first consecutive part all meets the condition and no candidate from the second part meets the condition, or vice versa.</li>
-</ul>
-<p>The main idea is to gradually reach the extreme value required in the question. In each step, we need to make sure that the current value (int mid = left + (right - left) / 2) meets the condition. In the last step, the condition is not meet, then the second to last value is the value we want.</p>
-<p><strong>related questions:</strong></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-repeating-substring/">https://leetcode.com/problems/longest-repeating-substring/</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/koko-eating-bananas/">https://leetcode.com/problems/koko-eating-bananas/</a></li>
-</ul>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/explore/learn/card/binary-search/">https://leetcode.com/explore/learn/card/binary-search/</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/17/Binary-Search/" data-id="ckzvw789k0001msvb3qcqgh8n" data-title="Binary Search" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/18/Trie/" data-id="ckzw6agph000aqgvb52b42kwc" data-title="Trie" class="article-share-link">Share</a>
       
       
       
@@ -1099,6 +1065,10 @@
           </li>
         
           <li>
+            <a href="/2022/02/20/Monotonic-Stack/">Monotonic Stack</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
           </li>
         
@@ -1108,10 +1078,6 @@
         
           <li>
             <a href="/2022/02/19/Dijkstra's-Algorithm/">Dijkstra&#39;s Algorithm</a>
-          </li>
-        
-          <li>
-            <a href="/2022/02/19/Minimum-Spanning-Tree/">Minimum Spanning Tree</a>
           </li>
         
       </ul>
