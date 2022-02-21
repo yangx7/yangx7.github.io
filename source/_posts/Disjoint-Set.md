@@ -1,7 +1,7 @@
 ---
 title: Disjoint Set
 date: 2022-02-18
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Disjoint Set?</span>

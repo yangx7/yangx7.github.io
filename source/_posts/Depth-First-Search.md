@@ -1,7 +1,7 @@
 ---
 title: Depth First Search
 date: 2022-02-18
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Depth First Search?</span>

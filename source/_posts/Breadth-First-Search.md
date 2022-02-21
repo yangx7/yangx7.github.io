@@ -1,7 +1,7 @@
 ---
 title: Breadth First Search
 date: 2022-02-18
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Breadth First Search?</span>

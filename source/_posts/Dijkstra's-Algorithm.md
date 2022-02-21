@@ -1,7 +1,7 @@
 ---
 title: Dijkstra's Algorithm
 date: 2022-02-19
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Dijkstra's Algorithm?</span>

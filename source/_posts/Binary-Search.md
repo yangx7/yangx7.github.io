@@ -1,7 +1,7 @@
 ---
 title: Binary Search
 date: 2022-02-17
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Binary Search?</span>

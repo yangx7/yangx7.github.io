@@ -1,7 +1,7 @@
 ---
 title: Topological Sorting
 date: 2022-02-20
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Topological Sorting?</span>

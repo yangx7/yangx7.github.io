@@ -1,7 +1,7 @@
 ---
 title: Bellman Ford Algorithm
 date: 2022-02-19
-tags:
+tags: algorithm
 ---
 
 ### <span style="color:red">What is Bellman Ford Algorithm?</span>
