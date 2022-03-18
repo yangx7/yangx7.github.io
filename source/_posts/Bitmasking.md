@@ -147,11 +147,11 @@ bitmask -= (int)Math.pow(bsae, n - 1 - i);
 
 ### <span style="color:red">Time and Space Complexity</span>
 
-**Time Complexity: <span style="background-color:yellow">O(2<sup>N</sup>)</span>**
-If the bitmask has N digits, we have at most 2<sup>N</sup> different states.
+**Time Complexity: <span style="background-color:yellow">O(B<sup>N</sup>)</span>**
+If the bitmask has N digits, the base is B, we have at most B<sup>N</sup> different states.
 
-**Space Complexity: <span style="background-color:yellow">O(2<sup>N</sup>)</span>**
-For 2<sup>N</sup> different states, we need at most 2<sup>N</sup> space, in real questions, usually we use much less space.
+**Space Complexity: <span style="background-color:yellow">O(B<sup>N</sup>)</span>**
+For B<sup>N</sup> different states, we need at most B<sup>N</sup> space, in real questions, usually we use much less space.
 
 ### <span style="color:red">Further Discussion</span>
 
