@@ -143,6 +143,11 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based) (counting from right to left, become 239 in 10-base)</span></span><br><span class="line"><span class="comment">// i = 2; (counting from left to right, the ith digit has value 2)</span></span><br><span class="line">bitmask -= (<span class="keyword">int</span>)Math.pow(bsae, n - <span class="number">1</span> - i);</span><br></pre></td></tr></table></figure>
 
+<ol start="2">
+<li>If we want to increase the value of the ith bit by 1, then we can simply change <code>-=</code> to <code>+=</code>:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// increase the value of the ith bit by 1 (counting bitmask and i from right to left, 0-indexed)</span></span><br><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based)</span></span><br><span class="line"><span class="comment">// i = 2;</span></span><br><span class="line">bitmask += (<span class="keyword">int</span>)Math.pow(bsae, i);</span><br></pre></td></tr></table></figure>
+
 <h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(B<sup>N</sup>)</span></strong><br>If the bitmask has N digits, the base is B, we have at most B<sup>N</sup> different states.</p>
 <p><strong>Space Complexity: <span style="background-color:yellow">O(B<sup>N</sup>)</span></strong><br>For B<sup>N</sup> different states, we need at most B<sup>N</sup> space, in real questions, usually we use much less space.</p>
 <h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Bitmasking can be combined with different algorithms or techniques, here are some examples:</p>
@@ -159,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/16/Bitmasking/" data-id="cl0wb5go60003ysvbdqa42lou" data-title="Bitmasking" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/03/16/Bitmasking/" data-id="cl0wfk6xp000300vb4ckkfyad" data-title="Bitmasking" class="article-share-link">Share</a>
       
       
       
