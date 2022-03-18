@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Bitmasking | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="What is Bitmasking? Bitmasking is a technique to represent some state in a finite set. It can be used to represent a subset of a finite set, one state of a 0-1 2D matrix, etc. For example, consider th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitmasking">
+<meta property="og:url" content="http://example.com/2022/03/16/Bitmasking/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="What is Bitmasking? Bitmasking is a technique to represent some state in a finite set. It can be used to represent a subset of a finite set, one state of a 0-1 2D matrix, etc. For example, consider th">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-16T07:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-18T10:53:22.761Z">
+<meta property="article:author" content="Yang Xiao">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Bitmasking" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/16/Bitmasking/" class="article-date">
+  <time class="dt-published" datetime="2022-03-16T07:00:00.000Z" itemprop="datePublished">2022-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Bitmasking
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Bitmasking"><a href="#What-is-Bitmasking" class="headerlink" title="What is Bitmasking?"></a><span style="color:red">What is Bitmasking?</span></h3><ul>
+<li>Bitmasking is a <span style="background-color:yellow"><strong>technique</strong></span> to represent some state in a finite set. It can be used to represent a subset of a finite set, one state of a 0-1 2D matrix, etc. For example, consider the set A = {1, 2, 3, 4, 5}, we can represent any subset of A using a binary bitmask of length 5, with the assumption that if ith (0 &lt;= i &lt;= 4) bit is set then it means ith element is present in the subset. So the bitmask 00011 represents the subset {1, 2}.</li>
+<li>In essence, bitmask is just a number that represents some state, the most common case is that the number is 2-based, so each bit can represent at most 2 different states. But the number is not necessarily always a binary number, it can be 3-based, 10-based depending on the question, so each bit can represent more than 2 states.</li>
+<li>Bitmasking is usually combined with other techniques such as Dynamic Programming, BFS, etc.</li>
+</ul>
+<h3 id="Three-Basic-Operations-of-Binary-Bitmask"><a href="#Three-Basic-Operations-of-Binary-Bitmask" class="headerlink" title="Three Basic Operations of Binary Bitmask"></a><span style="color:red">Three Basic Operations of Binary Bitmask</span></h3><ul>
+<li><span style="background-color:yellow"><strong>Set the ith bit</strong></span></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set the ith bit to 1 (counting i from right to left, 0-indexed)</span></span><br><span class="line">bitmask |= (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">For example:</span></span><br><span class="line"><span class="comment">  Set A = &#123;1, 2, 3, 4, 5&#125;.</span></span><br><span class="line"><span class="comment">  bitmask = 01010 represents the subset &#123;2, 4&#125;.</span></span><br><span class="line"><span class="comment">  Let i = 0, set the ith bit, so,</span></span><br><span class="line"><span class="comment">    1 &lt;&lt; i = 00001</span></span><br><span class="line"><span class="comment">    01010 | 00001 = 01011</span></span><br><span class="line"><span class="comment">  Therefore currently bitmask represents the subset &#123;1, 2, 4&#125;.</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><span style="background-color:yellow"><strong>Unset the ith bit</strong></span></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// unset the ith bit to 0 (counting i from right to left, 0-indexed)</span></span><br><span class="line">bitmask &amp;= (~(<span class="number">1</span> &lt;&lt; i));</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">For example:</span></span><br><span class="line"><span class="comment">  Set A = &#123;1, 2, 3, 4, 5&#125;.</span></span><br><span class="line"><span class="comment">  bitmask = 01010 represents the subset &#123;2, 4&#125;.</span></span><br><span class="line"><span class="comment">  Let i = 1, unset the ith bit, so,</span></span><br><span class="line"><span class="comment">    1 &lt;&lt; i = 00010</span></span><br><span class="line"><span class="comment">    ~(1 &lt;&lt; i) = 11101</span></span><br><span class="line"><span class="comment">    01010 &amp; 11101 = 01000</span></span><br><span class="line"><span class="comment">  Therefore currently bitmask represents the subset &#123;4&#125;.</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><span style="background-color:yellow"><strong>Check if the ith bit is set</strong></span></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// check if the ith bit is set to 1 (counting i from right to left, 0-indexed)</span></span><br><span class="line">(bitmask &amp; (<span class="number">1</span> &lt;&lt; i)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">For example:</span></span><br><span class="line"><span class="comment">  Set A = &#123;1, 2, 3, 4, 5&#125;.</span></span><br><span class="line"><span class="comment">  bitmask = 01010 represents the subset &#123;2, 4&#125;.</span></span><br><span class="line"><span class="comment">  Let i = 1, check if the ith bit is set to 1, so,</span></span><br><span class="line"><span class="comment">    1 &lt;&lt; i = 00010</span></span><br><span class="line"><span class="comment">    01010 &amp; 00010 = 00010</span></span><br><span class="line"><span class="comment">  Since the result 00010 is greater than 0, the ith bit is set to 1</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Three-Basic-Operations-of-Non-Binary-Bitmask"><a href="#Three-Basic-Operations-of-Non-Binary-Bitmask" class="headerlink" title="Three Basic Operations of Non-Binary Bitmask"></a><span style="color:red">Three Basic Operations of Non-Binary Bitmask</span></h3><p>If in one bit we can contain more than 2 states, we need a bitmask with higher base. For example, if each case can contain at most 2 items, then we need a 3-based bitmask number to represent each state. Each bit can have the value 0, 1, 2 representing no items, one item in the case, two items in the case respectively.</p>
+<ul>
+<li><span style="background-color:yellow"><strong>Initialize the bitmask</strong></span>: In some cases like the example mentioned above, we need to initialize the bitmask to represent every case is available.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initialize the bitmask</span></span><br><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="keyword">int</span> bitmask = (<span class="keyword">int</span>)Math.pow(base, n) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Explanation:</span></span><br><span class="line"><span class="comment">  There are 5 cases, and each case can contain at most 2 items, so base = 3, n = 5.</span></span><br><span class="line"><span class="comment">  Initialize the bitmask to represent each case has two available rooms to hold items now.</span></span><br><span class="line"><span class="comment">  bitmask = (int)Math.pow(base, n) - 1 = 22222(3-based).</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><span style="background-color:yellow"><strong>Check the value of the ith bit</strong></span></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// check the value of the ith bit (counting bitmask and i from right to left, 0-indexed)</span></span><br><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based)</span></span><br><span class="line"><span class="comment">// i = 1;</span></span><br><span class="line"><span class="keyword">int</span> val = bitmask / (<span class="keyword">int</span>)Math.pow(base, i) % base;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Explanation:</span></span><br><span class="line"><span class="comment">  There are 5 cases, and each case can contain at most 2 items, so base = 3, n = 5.</span></span><br><span class="line"><span class="comment">  bitmask = 22212(3-based), i = 1, so counting from right to left, the ith digit (the 2nd digit) is 1.</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color:yellow"><strong>Note</strong>:</span></p>
+<ol>
+<li>Here we count the bitmask and i both <span style="background-color:yellow">from right to left</span>, so for bitmask 22212 the 1th bit is 1, the least significant bit (LSB) of bitmask is at right-most, so if we convert the bitmask to 10-base number, it should be 2 + 3 + 2 × 9 + 2 × 27 + 2 × 81 = 239.</li>
+<li>If we count the bitmask and i both <span style="background-color:yellow">from left to right</span>, the formula is still the same, but the value of bitmask and i are different now. So converting bitmask to 10-base number, it should be 2 + 2 × 3 + 2 × 9 + 1 × 27 + 2 × 81 = 215, i should be 3 now (counting from left to right, 0-indexed).</li>
+<li>In most cases, LSB is at right-most such as in 10-base numbers, so usually we count bitmask from right to left. Then if i is counted from left to right, the above formula should be changed to</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based) (counting from right to left, become 239 in 10-base)</span></span><br><span class="line"><span class="comment">// i = 3; (counting from left to right, the ith digit has value 1)</span></span><br><span class="line"><span class="keyword">int</span> val = bitmask / (<span class="keyword">int</span>)Math.pow(base, n - <span class="number">1</span> - i) % base;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><span style="background-color:yellow"><strong>Decrease the value of the ith bit by 1</strong></span></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// decrease the value of the ith bit by 1 (counting bitmask and i from right to left, 0-indexed)</span></span><br><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based)</span></span><br><span class="line"><span class="comment">// i = 2;</span></span><br><span class="line">bitmask -= (<span class="keyword">int</span>)Math.pow(bsae, i);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">Explanation:</span></span><br><span class="line"><span class="comment">  There are 5 cases, and each case can contain at most 2 items, so base = 3, n = 5.</span></span><br><span class="line"><span class="comment">  bitmask = 22212(3-based), i = 2, so counting from right to left, the ith digit (the 3rd digit) is 2.</span></span><br><span class="line"><span class="comment">  Decrease the third digit by 1, the bitmask should become 22112(3-based) now.</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color:yellow"><strong>Note</strong>:</span></p>
+<ol>
+<li>Same as we discussed in the above section of checking the value of the ith bit, if we count the bitmask from right to left but i from left to right, the formula should be changed to:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// base = 3;</span></span><br><span class="line"><span class="comment">// n = 5;</span></span><br><span class="line"><span class="comment">// bitmask = 22212(3-based) (counting from right to left, become 239 in 10-base)</span></span><br><span class="line"><span class="comment">// i = 2; (counting from left to right, the ith digit has value 2)</span></span><br><span class="line">bitmask -= (<span class="keyword">int</span>)Math.pow(bsae, n - <span class="number">1</span> - i);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Time-and-Space-Complexity"><a href="#Time-and-Space-Complexity" class="headerlink" title="Time and Space Complexity"></a><span style="color:red">Time and Space Complexity</span></h3><p><strong>Time Complexity: <span style="background-color:yellow">O(2<sup>N</sup>)</span></strong><br>If the bitmask has N digits, we have at most 2<sup>N</sup> different states.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(2<sup>N</sup>)</span></strong><br>For 2<sup>N</sup> different states, we need at most 2<sup>N</sup> space, in real questions, usually we use much less space.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Bitmasking can be combined with different algorithms or techniques, here are some examples:</p>
+<ul>
+<li>Bitmask + Dynamic Programming: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/partition-to-k-equal-sum-subsets/">https://leetcode.com/problems/partition-to-k-equal-sum-subsets/</a></li>
+<li>Bitmask + BFS: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix/">https://leetcode.com/problems/minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix/</a></li>
+<li>Non-Binary Bitmask: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-and-sum-of-array/">https://leetcode.com/problems/maximum-and-sum-of-array/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.hackerearth.com/practice/algorithms/dynamic-programming/bit-masking/tutorial/">https://www.hackerearth.com/practice/algorithms/dynamic-programming/bit-masking/tutorial/</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/maximum-and-sum-of-array/discuss/1769139/Python.-Simple-dp-solution-without-bitmask-with-explanation">https://leetcode.com/problems/maximum-and-sum-of-array/discuss/1769139/Python.-Simple-dp-solution-without-bitmask-with-explanation</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/16/Bitmasking/" data-id="cl0wb1bff0003wkvb0upn5k1y" data-title="Bitmasking" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/20/Heap/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Heap</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/16/Bitmasking/">Bitmasking</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Heap/">Heap</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Monotonic-Stack/">Monotonic Stack</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/19/Bellman-Ford-Algorithm/">Bellman Ford Algorithm</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Yang Xiao<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
