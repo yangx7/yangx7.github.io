@@ -145,6 +145,17 @@ Explanation:
 bitmask -= (int)Math.pow(bsae, n - 1 - i);
 ```
 
+2. If we want to increase the value of the ith bit by 1, then we can simply change `-=` to `+=`:
+
+```java
+// increase the value of the ith bit by 1 (counting bitmask and i from right to left, 0-indexed)
+// base = 3;
+// n = 5;
+// bitmask = 22212(3-based)
+// i = 2;
+bitmask += (int)Math.pow(bsae, i);
+```
+
 ### <span style="color:red">Time and Space Complexity</span>
 
 **Time Complexity: <span style="background-color:yellow">O(B<sup>N</sup>)</span>**
