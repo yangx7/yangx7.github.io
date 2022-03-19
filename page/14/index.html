@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/14/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Yang Xiao">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Rolling-Hash" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/18/Rolling-Hash/" class="article-date">
+  <time class="dt-published" datetime="2022-03-18T07:00:00.000Z" itemprop="datePublished">2022-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/18/Rolling-Hash/">Rolling Hash</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="What-is-Rolling-Hash"><a href="#What-is-Rolling-Hash" class="headerlink" title="What is Rolling Hash?"></a><span style="color:red">What is Rolling Hash?</span></h3><ul>
+<li>Rolling Hash is a <span style="background-color:yellow"><strong>technique</strong></span> usually used to match a substring, it is also known as Rabin-Karp Algorithm.</li>
+<li>In rolling hash, we define a hash function to map a string to an unique hash value. Note that hash collision is not evitable, but we can reduce collision by adopting a relative larger modulo or base, we can also compare strings to check if they are really the same after checking the hash value.</li>
+</ul>
+<h3 id="Template-1"><a href="#Template-1" class="headerlink" title="Template 1"></a><span style="color:red">Template 1</span></h3><p>Implement strStr(), return the index of the first occurrence of string t in string s, or -1 if t is not part of s.<br>Constraints:</p>
+<ul>
+<li>0 &lt;= s.length, t.length &lt;= 5 × 10<sup>4</sup></li>
+<li>s and t consist of only lower-case English characters.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> m = s.length();</span><br><span class="line">  <span class="keyword">int</span> n = t.length();</span><br><span class="line">  <span class="keyword">if</span> (m &lt; n) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if t is an empty string, return 0</span></span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// (int)1e9 + 7 is commonly used, mod can be other value</span></span><br><span class="line">  <span class="keyword">int</span> mod = (<span class="keyword">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">  <span class="comment">// since s and t consist of only lower-case English characters, we can use 26 or higher value</span></span><br><span class="line">  <span class="keyword">int</span> base = <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// should intialize power with long type,</span></span><br><span class="line">  <span class="comment">// since in the process of calculating power, the value may exceed int range</span></span><br><span class="line">  <span class="comment">// 26 ^ 7 &gt; 2 ^ 31</span></span><br><span class="line">  <span class="keyword">long</span> power = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    power = power * base % mod;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// calculate the hash value of string t,</span></span><br><span class="line">  <span class="comment">// although we will finally mod hash value and it will be in the range of int type,</span></span><br><span class="line">  <span class="comment">// in the process of calculating hash, the value may exceed int range</span></span><br><span class="line">  <span class="keyword">long</span> hash = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">char</span> c : t.toCharArray()) &#123;</span><br><span class="line">    hash = (hash * base + c - <span class="string">&#x27;a&#x27;</span>) % mod;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">long</span> h = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">    <span class="comment">// first add current character to h</span></span><br><span class="line">    h = (h * base + s.charAt(i) - <span class="string">&#x27;a&#x27;</span>) % mod;</span><br><span class="line">    <span class="comment">// if the length of the substring is less than n, we just continue</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// if the length of the substring is larger than n,</span></span><br><span class="line">    <span class="comment">// then decrease the hash value of the first character of the substring</span></span><br><span class="line">    <span class="keyword">if</span> (i &gt; n - <span class="number">1</span>) &#123;</span><br><span class="line">      h = (h - (s.charAt(i - n) - <span class="string">&#x27;a&#x27;</span>) * power[n] % mod + mod) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// return if h == hash and the real substring is the same as t</span></span><br><span class="line">    <span class="keyword">if</span> (h == hash &amp;&amp; s.substring(i - n + <span class="number">1</span>, i + <span class="number">1</span>).equals(t)) &#123;</span><br><span class="line">      <span class="keyword">return</span> i - n + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// if we do not worry about collision and want to be faster,</span></span><br><span class="line">    <span class="comment">// we can simply use h == hash as the condition check</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Key-Attributes"><a href="#Key-Attributes" class="headerlink" title="Key Attributes:"></a>Key Attributes:</h4><ul>
+<li>The hash function in this template is:<br>hash = (t[0] × base<sup>n - 1</sup> + t[1] × base<sup>n - 2</sup> + … + t[n - 2] × base<sup>1</sup> + t[n - 1] × base<sup>0</sup>) % mod</li>
+<li>(int)1e9 + 7 is commonly used as mod and 26 is usually used as base for strings, but we can make it larger such as 29, etc.</li>
+<li>In this template, we only calculate base<sup>n</sup> as the power, in some questions, we may need to access the power array:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span>[] powers = <span class="keyword">new</span> <span class="keyword">long</span>[n + <span class="number">1</span>];</span><br><span class="line">powers[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">  powers[i] = powers[i - <span class="number">1</span>] * base % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time Complexity: <span style="background-color:yellow">O(m + n)</span></strong><br>m is the length of string s, n is the length of string t, we iterate two strings to calculate hash value.</p>
+<p><strong>Space Complexity: <span style="background-color:yellow">O(1)</span></strong><br>We do not use extra space.</p>
+<h3 id="Further-Discussion"><a href="#Further-Discussion" class="headerlink" title="Further Discussion"></a><span style="color:red">Further Discussion</span></h3><p>Sometimes the question may define a different hash function, for example:<br>hash = (t[0] × base<sup>0</sup> + t[1] × base<sup>1</sup> + … + t[n - 2] × base<sup>n - 2</sup> + t[n - 1] × base<sup>n - 1</sup>) % mod<br>In this case, we need to calculate hash from the end of the string, this way the middle result won’t exceed int and long range.</p>
+<p><strong>related questions:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-substring-with-given-hash-value/">https://leetcode.com/problems/find-substring-with-given-hash-value/</a></li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a><span style="color:red">Reference</span></h3><p>None</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/18/Rolling-Hash/" data-id="cl0xdmtpq000l1wvbh14l1vaw" data-title="Rolling Hash" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/18/Rolling-Hash/">Rolling Hash</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/16/Bitmasking/">Bitmasking</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Heap/">Heap</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Monotonic-Stack/">Monotonic Stack</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/20/Topological-Sorting/">Topological Sorting</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Yang Xiao<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
